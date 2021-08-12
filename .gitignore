@@ -1,0 +1,30 @@
+# -*- mode: gitignore; -*-
+
+# ##################################################
+# Emacs ignores
+# More at: https://github.com/github/gitignore/blob/main/Global/Emacs.gitignore
+# ##################################################
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+# Org-mode
+.org-id-locations
+*_archive
+# flymake-mode
+*_flymake.*
+# elpa packages
+/elpa/
+# reftex files
+*.rel
+# Flycheck
+flycheck_*.el
+# projectiles files
+.projectile
+# directory configuration
+.dir-locals.el
+
