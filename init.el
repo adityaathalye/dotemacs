@@ -35,6 +35,12 @@
 (unless (file-exists-p dotemacs-savefile-dir)
   (make-directory dotemacs-savefile-dir))
 
+;; Make emacs add customisations here, instead of the init file.
+;; Usually customisations made from the UI go into custom-file.
+(setq custom-file (expand-file-name "custom.el" dotemacs-dir))
+(unless (file-exists-p custom-file)
+  (make-empty-file custom-file))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Visual Aesthetics
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -51,6 +57,31 @@
 ;; This high-contrast darkmode theme is built into Emacs as of
 ;; Emacs version 28.1
 (load-theme 'modus-vivendi)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Package management
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'package)
+;; Explicitly set the exact package archives list
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+			 ("org" . "https://orgmode.org/elpa/")
+			 ("elpa" . "https://elpa.gnu.org/packages/")))
+;; Set package download directory relative to the dotemacs-dir
+(setq package-user-dir (expand-file-name "elpa" dotemacs-dir))
+
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+
+;; Use use-package
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
 
 
 (provide 'init)
