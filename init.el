@@ -73,8 +73,8 @@
 (require 'package)
 ;; Explicitly set the exact package archives list
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-			 ("org" . "https://orgmode.org/elpa/")
-			 ("elpa" . "https://elpa.gnu.org/packages/")))
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
 ;; Set package download directory relative to the dotemacs-dir
 (setq package-user-dir (expand-file-name "elpa" dotemacs-dir))
 
@@ -82,14 +82,62 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Use use-package
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Ian Y.E. Pan's tutorial is a nice quick overview.
+;; https://ianyepan.github.io/posts/setting-up-use-package/
+
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+(setq use-package-expand-minimally t) ; set nil to debug use-package forms
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; All the packages!
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Packages useful to configure packages
+(use-package diminish)
+(use-package delight)
+
+;;; COMplete ANYthing, please!
+;;; h/t suvratapte/dot-emacs-dot-d
+(use-package company
+  :bind (:map global-map
+              ("TAB" . company-complete-common-or-cycle))
+  :config
+  (setq company-idle-delay 0.1)
+  (global-company-mode t)
+  :diminish)
+
+;;; General code editing
+(global-display-line-numbers-mode 1)
+
+;;; Lispy editing support
+
+;; Tweak settings of built-in paren package
+(use-package paren
+  :ensure nil ; it already exists, don't try to search online
+  :init
+  (setq show-paren-delay 0)
+  :config
+  (show-paren-mode t)
+  :diminish)
+
+(use-package paredit
+  :init
+  (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
+  :bind
+  (("M-[" . paredit-wrap-square)
+   ("M-{" . paredit-wrap-curly))
+  :diminish)
+
+(use-package magit
+  :diminish)
 
 (provide 'init)
 ;;; init.el ends here
