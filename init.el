@@ -28,8 +28,10 @@
 ;; ~/.emacs.d symlinked to the dotemacs repo, and develop/debug against
 ;; the repo without potentially overwriting transient state files of the
 ;; daily driver .emacs.d.
-(defvar dotemacs-dir (file-name-directory load-file-name)
-  "The dotemacs' root.")
+(defvar dotemacs-dir
+  (file-name-directory (or load-file-name (buffer-file-name)))
+  "The dotemacs' root.  Normally it should be ~/.emacs.d.")
+
 (defvar dotemacs-savefile-dir (expand-file-name "savefile" dotemacs-dir)
   "This folder stores all the automatically generated save/history-files.")
 (unless (file-exists-p dotemacs-savefile-dir)
@@ -40,6 +42,11 @@
 (setq custom-file (expand-file-name "custom.el" dotemacs-dir))
 (unless (file-exists-p custom-file)
   (make-empty-file custom-file))
+
+;; Sundries
+(setq indent-tabs-mode nil) ; no hard tabs
+(setq create-lockfiles nil) ; no lockfiles
+(setq ring-bell-function 'ignore) ;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Visual Aesthetics
