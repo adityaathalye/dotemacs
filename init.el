@@ -1,4 +1,4 @@
-;;; init.el --- My Emacs configuration.
+;;; init.el  -*- lexical-binding: t -*-  --- My Emacs configuration.
 
 ;;; Commentary:
 
