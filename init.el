@@ -42,6 +42,7 @@
 (setq custom-file (expand-file-name "custom.el" dotemacs-dir))
 (unless (file-exists-p custom-file)
   (make-empty-file custom-file))
+(load-file custom-file) ; load *now*, instead of unpredictable load sequence
 
 ;; Sundries
 (setq indent-tabs-mode nil) ; no hard tabs
