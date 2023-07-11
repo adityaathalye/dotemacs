@@ -44,18 +44,28 @@
   (make-empty-file custom-file))
 (load-file custom-file) ; load *now*, instead of unpredictable load sequence
 
-;; Sundries
+;;; Performance
+
+;; Increase GC threshold for better overall performance. ~50-100MB
+;; is commonly recommended, over the long-obsolete default of ~8MB.
+(setq gc-cons-threshold 100000000)
+;; Large files freeze Emacs. Warn if the file size is over ~100MB.
+(setq large-file-warning-threshold 100000000)
+
+;;; Sundries
 
 ;; Tabs v/s Spaces
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Just-Spaces.html
 ;; Spaces over tabs always, but keep up 8-wide conventional appearances.
 ;; Note: Use `C-q TAB` to insert literal tabs.
 (setq-default indent-tabs-mode nil
-	          tab-width 8)
+	      tab-width 8)
 (setq create-lockfiles nil) ; no lockfiles
 (setq ring-bell-function 'ignore) ; no beeps
 (setq require-final-newline t) ; always well-form files
 (delete-selection-mode t) ; delete selection for any keypress
+(global-display-line-numbers-mode 1) ; always show line numbers
+(global-auto-revert-mode 1) ; auto-revert buffer if file-on-disk changes
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Visual Aesthetics
@@ -122,9 +132,6 @@
   (setq company-idle-delay 0.1)
   (global-company-mode t)
   :diminish)
-
-;;; General code editing
-(global-display-line-numbers-mode 1)
 
 ;;; Lispy editing support
 
