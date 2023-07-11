@@ -45,9 +45,17 @@
 (load-file custom-file) ; load *now*, instead of unpredictable load sequence
 
 ;; Sundries
-(setq indent-tabs-mode nil) ; no hard tabs
+
+;; Tabs v/s Spaces
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Just-Spaces.html
+;; Spaces over tabs always, but keep up 8-wide conventional appearances.
+;; Note: Use `C-q TAB` to insert literal tabs.
+(setq-default indent-tabs-mode nil
+	          tab-width 8)
 (setq create-lockfiles nil) ; no lockfiles
-(setq ring-bell-function 'ignore) ;
+(setq ring-bell-function 'ignore) ; no beeps
+(setq require-final-newline t) ; always well-form files
+(delete-selection-mode t) ; delete selection for any keypress
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Visual Aesthetics
