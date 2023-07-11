@@ -110,8 +110,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Packages useful to configure packages
-(use-package diminish)
-(use-package delight)
+(use-package diminish) ; to remove /minor/ mode name clutter from modeline
+;; (use-package delight) ; to do finer-grained tweaks than diminish
 
 ;;; COMplete ANYthing, please!
 ;;; h/t suvratapte/dot-emacs-dot-d
