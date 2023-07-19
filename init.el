@@ -183,6 +183,18 @@ Usually customisations made from the UI go into `custom-file'.")
 ;; It integrates seamlessly with use-package.
 (use-package blackout)
 
+(use-package helpful ; h/t systemcrafters
+  ;; https://github.com/Wilfred/helpful
+  :ensure t
+  :bind (("C-h f" . #'helpful-callable)
+         ("C-h F" . #'helpful-function) ; exclude macros
+         ("C-h v" . #'helpful-variable)
+         ("C-h k" . #'helpful-key)
+         ("C-h x" . #'helpful-command)
+         ;; Lookup the current symbol at point. C-c C-d is
+         ;; a common keybinding for this in lisp modes.
+         ("C-c C-d" . #'helpful-at-point)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; General text viewing and editing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
