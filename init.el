@@ -274,6 +274,9 @@ Usually customisations made from the UI go into `custom-file'.")
   :ensure t
   :config (which-key-mode t)
   (setq which-key-idle-delay 0.5)
+  ;; Sort based on the key description ignoring case (default
+  ;; is 'which-key-key-order).
+  (setq which-key-sort-order 'which-key-description-order)
   :blackout)
 
 
