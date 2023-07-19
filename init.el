@@ -95,7 +95,8 @@
                          ("org" . "https://orgmode.org/elpa/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 ;; Set package download directory relative to the dotemacs-dir
-(setq package-user-dir (expand-file-name "elpa" dotemacs-dir))
+(setq package-user-dir (file-name-as-directory
+                        (expand-file-name "elpa" dotemacs-dir)))
 
 (package-initialize)
 (unless package-archive-contents
