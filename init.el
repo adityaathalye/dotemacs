@@ -276,11 +276,13 @@ Usually customisations made from the UI go into `custom-file'.")
   (("C-=" . er/expand-region)
    ("C-M-=" . er/contract-region)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Lispy editing support
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Tweak settings of built-in paren package
 (use-package paren
-  :ensure nil ; it already exists, don't try to search online
+  :ensure nil                    ; it already exists, don't try to search online
   :init
   (setq show-paren-delay 0)
   :config
@@ -288,11 +290,14 @@ Usually customisations made from the UI go into `custom-file'.")
   :blackout)
 
 (use-package paredit
-  :init
-  (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
+  ;; Handy configs available at the wiki https://www.emacswiki.org/emacs/ParEdit
+  ;; including combining with eldoc, "electric" enabled modes etc.
+  :ensure t
   :bind
   (("M-[" . paredit-wrap-square)
    ("M-{" . paredit-wrap-curly))
+  :hook ((emacs-lisp-mode lisp-interaction-mode)
+         . paredit-mode)
   :blackout)
 
 (use-package magit
