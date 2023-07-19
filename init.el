@@ -242,6 +242,21 @@ Usually customisations made from the UI go into `custom-file'.")
 
   (desktop-save-mode 1))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; More "heads-up display" like behaviour
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package ibuffer
+  :bind (:map global-map
+              ("C-x C-b" . ibuffer-other-window))
+  :blackout)
+
+(use-package which-key
+  :ensure t
+  :config (which-key-mode t)
+  (setq which-key-idle-delay 0.5)
+  :blackout)
+
   :ensure t
 
 ;;; Lispy editing support
