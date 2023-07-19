@@ -27,4 +27,5 @@ flycheck_*.el
 .projectile
 # directory configuration
 .dir-locals.el
-
+# custom temporary directories
+savefile/
