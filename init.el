@@ -175,19 +175,22 @@ Usually customisations made from the UI go into `custom-file'.")
 ;; All the packages!
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Packages useful to configure packages
-(use-package diminish) ; to remove /minor/ mode name clutter from modeline
-;; (use-package delight) ; to do finer-grained tweaks than diminish
+;; Packages useful to configure packages
 
-;;; COMplete ANYthing, please!
-;;; h/t suvratapte/dot-emacs-dot-d
+;; radian-software/blackout to tune major/minor mode names
+;; in modeline. It unifies functionality of the mutually
+;; confusing modeline lighters delight, diminish, and dim.
+;; It integrates seamlessly with use-package.
+(use-package blackout)
+
 (use-package company
   :bind (:map global-map
               ("TAB" . company-complete-common-or-cycle))
   :config
   (setq company-idle-delay 0.1)
   (global-company-mode t)
-  :diminish)
+  :blackout)
+
 
 ;;; Lispy editing support
 
@@ -198,7 +201,7 @@ Usually customisations made from the UI go into `custom-file'.")
   (setq show-paren-delay 0)
   :config
   (show-paren-mode t)
-  :diminish)
+  :blackout)
 
 (use-package paredit
   :init
@@ -206,10 +209,11 @@ Usually customisations made from the UI go into `custom-file'.")
   :bind
   (("M-[" . paredit-wrap-square)
    ("M-{" . paredit-wrap-curly))
-  :diminish)
+  :blackout)
 
 (use-package magit
-  :diminish)
+  :ensure t
+  :blackout)
 
 (provide 'init)
 ;;; init.el ends here
