@@ -183,6 +183,18 @@ Usually customisations made from the UI go into `custom-file'.")
 ;; It integrates seamlessly with use-package.
 (use-package blackout)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; General text viewing and editing
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Enable narrowings to enhance focus, and reduce accidental
+;; edits of nonfocus areas (thanks to save-restrictions).
+;; h/t bbatsov/prelude
+;; Note: `C-x n w` makes all visible again.
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-defun 'disabled nil)
+
 ;; COMplete ANYthing, please!
 ;; TODO: instead try radian's completion system
 ;;; ref: https://github.com/radian-software/radian
@@ -199,6 +211,13 @@ Usually customisations made from the UI go into `custom-file'.")
                 company-minimum-prefix-length 2)
   (global-company-mode t)
   :blackout)
+
+;; Selections
+(use-package expand-region
+  :ensure t
+  :bind
+  (("C-=" . er/expand-region)
+   ("C-M-=" . er/contract-region)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Remember states of files, buffer, desktop
@@ -257,24 +276,6 @@ Usually customisations made from the UI go into `custom-file'.")
   (setq which-key-idle-delay 0.5)
   :blackout)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; General text viewing and editing
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Enable narrowings to enhance focus, and reduce accidental
-;; edits of nonfocus areas (thanks to save-restrictions).
-;; h/t bbatsov/prelude
-;; Note: `C-x n w` makes all visible again.
-(put 'narrow-to-region 'disabled nil)
-(put 'narrow-to-page 'disabled nil)
-(put 'narrow-to-defun 'disabled nil)
-
-;; Selections
-(use-package expand-region
-  :ensure t
-  :bind
-  (("C-=" . er/expand-region)
-   ("C-M-=" . er/contract-region)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Lispy editing support
