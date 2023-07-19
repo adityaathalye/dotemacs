@@ -15,75 +15,127 @@
 
 ;;; Code:
 
+;; Set the low bar Emacs compatibility high
+(defvar dotemacs-min-version "28.1")
+
+(when (version< emacs-version dotemacs-min-version)
+  (error "We demand spiffy new Emacs, at least v%s, but you have v%s"
+         dotemacs-min-version
+         emacs-version))
+
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Globals
+;; DIRECTORY STRUCTURE
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Always load newest byte code
-(setq load-prefer-newer t) ; cf. bbatsov/prelude
-
-;; Directory structure
 ;; Take clues from bbatsov/prelude, except keep structure relative to our
 ;; initial dotemacs-dir path. This way we can start the user's emacs via
 ;; ~/.emacs.d symlinked to the dotemacs repo, and develop/debug against
 ;; the repo without potentially overwriting transient state files of the
 ;; daily driver .emacs.d.
+
 (defvar dotemacs-dir
   (file-name-directory (or load-file-name (buffer-file-name)))
   "The dotemacs' root.  Normally it should be ~/.emacs.d.")
 
-(defvar dotemacs-savefile-dir (expand-file-name "savefile" dotemacs-dir)
+(defvar dotemacs-custom-file (expand-file-name "custom.el" dotemacs-dir)
+  "Make Emacs add customisations here, instead of the init file.
+Usually customisations made from the UI go into `custom-file'.")
+(setq custom-file dotemacs-custom-file)
+(unless (file-exists-p dotemacs-custom-file)
+  (make-empty-file dotemacs-custom-file))
+(load-file custom-file) ; load *now*, instead of unpredictable load sequence
+
+(defvar dotemacs-savefile-dir (file-name-as-directory
+                               (expand-file-name "savefile" dotemacs-dir))
   "This folder stores all the automatically generated save/history-files.")
 (unless (file-exists-p dotemacs-savefile-dir)
   (make-directory dotemacs-savefile-dir))
 
-;; Make emacs add customisations here, instead of the init file.
-;; Usually customisations made from the UI go into custom-file.
-(setq custom-file (expand-file-name "custom.el" dotemacs-dir))
-(unless (file-exists-p custom-file)
-  (make-empty-file custom-file))
-(load-file custom-file) ; load *now*, instead of unpredictable load sequence
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; BETTER DEFAULTS
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; via
+;; - technomancy/better-defaults
+;; - bbatsov/prelude
+;; - vedang/emacs-up
+;; - suvratapte/dot-emacs-dot-d
 
-;;; Performance
-
-;; Increase GC threshold for better overall performance. ~50-100MB
-;; is commonly recommended, over the long-obsolete default of ~8MB.
-(setq gc-cons-threshold 100000000)
-;; Large files freeze Emacs. Warn if the file size is over ~100MB.
-(setq large-file-warning-threshold 100000000)
-
-;;; Sundries
-
-;; Tabs v/s Spaces
-;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Just-Spaces.html
-;; Spaces over tabs always, but keep up 8-wide conventional appearances.
-;; Note: Use `C-q TAB` to insert literal tabs.
+;; SPACES OVER TABS,
+;; but keep up conventional appearances of 8 character wide tabs.
+;; NOTE: Use `C-q TAB` to insert literal tabs.
 (setq-default indent-tabs-mode nil
-	      tab-width 8)
-(setq create-lockfiles nil) ; no lockfiles
-(setq ring-bell-function 'ignore) ; no beeps
-(setq require-final-newline t) ; always well-form files
-(delete-selection-mode t) ; delete selection for any keypress
-(global-display-line-numbers-mode 1) ; always show line numbers
+              tab-width 8
+              fill-column 80)
+
+(setq
+ ;; PERFORMANCE
+ ;; gc ~100MB for better overall performance. ~50-100MB is recommended
+ ;; these days over the long-obsolete default of ~8MB.
+ gc-cons-threshold (* 100 1024 1024)
+ ;; Large files freeze Emacs. Warn for files over ~100MB.
+ large-file-warning-threshold (* 100 1024 1024)
+ ;; Always load newest byte code. cf. bbatsov/prelude
+ load-prefer-newer t
+
+ ;; INTERACTIONS
+ inhibit-startup-message t
+ ring-bell-function 'ignore ; no beeps
+ require-final-newline t ; always well-form files
+ confirm-kill-emacs 'y-or-n-p ; instead of disabling 'C-x C-c'
+ create-lockfiles nil
+ tab-always-indent 'complete
+ tab-first-completion 'word
+ uniquify-buffer-name-style 'forward)
+
+;; MORE INTERACTIONS
+;; http://ergoemacs.org/emacs/emacs_save_restore_opened_files.html
 (global-auto-revert-mode 1) ; auto-revert buffer if file-on-disk changes
+(delete-selection-mode t) ; delete selection for any keypress
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(fset 'yes-or-no-p 'y-or-n-p) ; typing "yes/no" gets annoying fast
+(global-unset-key (kbd "C-z")) ; avoid fat fingering `suspend-frame'
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Visual Aesthetics
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; UTF-8 as default encoding
+;; ref: http://ergoemacs.org/emacs/emacs_encoding_decoding_faq.html
+(set-language-environment "UTF-8")
 
-(setq inhibit-startup-message t)
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; VISUAL AESTHETICS
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Go easy on the eyes. This high-contrast darkmode theme is built
+;; into Emacs, as of Emacs version 28.1
+(load-theme 'modus-vivendi)
 
 ;; More screen real estate
 (scroll-bar-mode 0)
 (tool-bar-mode 0)
+(tooltip-mode 0) ; disable popup, make help text appear in echo area
 (menu-bar-mode 0)
+(column-number-mode t)
 (set-fringe-mode '(5 . 13)) ;; describe variable fringe-mode
+(global-display-line-numbers-mode 1) ; always show line numbers
+(global-hl-line-mode +1)
 
-;; Go easy on the eyes
-;; This high-contrast darkmode theme is built into Emacs as of
-;; Emacs version 28.1
-(load-theme 'modus-vivendi)
+;; Tweak Font sizes globally, and also set line number mode
+(defun adi/set-frame-font--default ()
+  "Interactively set default frame font for day to day work."
+  (interactive)
+  (set-frame-font "-PfEd-DejaVu Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+  (global-display-line-numbers-mode -1))
 
+(defun adi/set-frame-font--pair-prog ()
+  "Interactively set frame font for pair programming."
+  (interactive)
+  (set-frame-font "-PfEd-DejaVu Sans Mono-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+  (global-display-line-numbers-mode 1))
+
+(defun adi/set-frame-font--code-demo ()
+  "Interactively set frame font for presentations and demos."
+  (interactive)
+  (set-frame-font "-1ASC-Liberation Mono-normal-normal-normal-*-28-*-*-*-m-0-iso10646-1")
+  (global-display-line-numbers-mode -1))
+
+;; Ensure we always start Emacs with the default font.
+(adi/set-frame-font--default)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Package management
