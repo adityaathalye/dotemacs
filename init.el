@@ -183,11 +183,20 @@ Usually customisations made from the UI go into `custom-file'.")
 ;; It integrates seamlessly with use-package.
 (use-package blackout)
 
+;; COMplete ANYthing, please!
+;; TODO: instead try radian's completion system
+;;; ref: https://github.com/radian-software/radian
 (use-package company
   :bind (:map global-map
-              ("TAB" . company-complete-common-or-cycle))
-  :config
-  (setq company-idle-delay 0.1)
+              ("TAB" . company-indent-or-complete-common)
+              ;; Got to love the name hippie-expand. Use this for general
+              ;; expansions, because company-complete is good for the
+              ;; current/narrow-case expansions. By default, `M-/` binds
+              ;; to the less powerful `dabbrev-expand`. To alter search
+              ;; options, :config the hippie-expand-try-functions-list.
+              ("M-/" . hippie-expand))
+  :config (setq company-idle-delay 0.1
+                company-minimum-prefix-length 2)
   (global-company-mode t)
   :blackout)
 
