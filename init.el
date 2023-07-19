@@ -231,6 +231,26 @@ Usually customisations made from the UI go into `custom-file'.")
   (("C-=" . er/expand-region)
    ("C-M-=" . er/contract-region)))
 
+;; Multiple cursors
+(use-package multiple-cursors
+  :ensure t
+  :config
+  ;; Idea taken from "Emacs: Define Key Sequence"
+  ;; ref: http://ergoemacs.org/emacs/emacs_keybinding_power_of_keys_sequence.html
+  ;; define prefix keymap for multiple cursors
+  (define-prefix-command 'adi/multi-cursor-keymap)
+  (define-key adi/multi-cursor-keymap (kbd "e") 'mc/edit-lines)
+  (define-key adi/multi-cursor-keymap (kbd "a") 'mc/mark-all-like-this-dwim)
+  (define-key adi/multi-cursor-keymap (kbd "r") 'mc/mark-all-in-region-regexp)
+  (define-key adi/multi-cursor-keymap (kbd "s") 'mc/mark-all-symbols-like-this-in-defun)
+  (define-key adi/multi-cursor-keymap (kbd "w") 'mc/mark-all-words-like-this-in-defun)
+  (define-key adi/multi-cursor-keymap (kbd "C-n") 'mc/mark-next-like-this)
+  (define-key adi/multi-cursor-keymap (kbd "C-p") 'mc/mark-previous-like-this)
+  (define-key adi/multi-cursor-keymap (kbd "C-a") 'mc/mark-all-like-this)
+  :bind-keymap ("C-c m" . adi/multi-cursor-keymap))
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Remember states of files, buffer, desktop
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
