@@ -164,7 +164,10 @@ Usually customisations made from the UI go into `custom-file'.")
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
-(require 'use-package)
+(eval-when-compile
+  (add-to-list 'load-path package-user-dir)
+  (require 'use-package))
+
 (setq use-package-always-ensure t)
 (setq use-package-expand-minimally t) ; set nil to debug use-package forms
 
