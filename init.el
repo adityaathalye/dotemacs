@@ -337,5 +337,17 @@ Usually customisations made from the UI go into `custom-file'.")
   :config (global-flycheck-mode +1)
   :blackout)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Programming languages
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package clojure-mode
+  :ensure t
+  :blackout)
+
+(use-package cider
+  :ensure t
+  :blackout)
+
 (provide 'init)
 ;;; init.el ends here
