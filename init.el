@@ -84,7 +84,9 @@ Usually customisations made from the UI go into `custom-file'.")
  create-lockfiles nil
  tab-always-indent 'complete
  tab-first-completion 'word
- uniquify-buffer-name-style 'forward)
+ uniquify-buffer-name-style 'forward
+ uniquify-after-kill-buffer-p t ; rename after killing uniquified
+ uniquify-ignore-buffers-re "^\\*") ; spare special buffers
 
 ;; MORE INTERACTIONS
 ;; http://ergoemacs.org/emacs/emacs_save_restore_opened_files.html
