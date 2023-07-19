@@ -257,7 +257,24 @@ Usually customisations made from the UI go into `custom-file'.")
   (setq which-key-idle-delay 0.5)
   :blackout)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; General text viewing and editing
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Enable narrowings to enhance focus, and reduce accidental
+;; edits of nonfocus areas (thanks to save-restrictions).
+;; h/t bbatsov/prelude
+;; Note: `C-x n w` makes all visible again.
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-defun 'disabled nil)
+
+;; Selections
+(use-package expand-region
   :ensure t
+  :bind
+  (("C-=" . er/expand-region)
+   ("C-M-=" . er/contract-region)))
 
 ;;; Lispy editing support
 
