@@ -300,8 +300,41 @@ Usually customisations made from the UI go into `custom-file'.")
          . paredit-mode)
   :blackout)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Programming and Writing workflow support
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (use-package magit
   :ensure t
+  :blackout)
+
+(use-package projectile
+  :ensure t
+  :blackout)
+
+(use-package yasnippet
+  :ensure t
+  :config
+  (defvar dotemacs-yasnippets-dir
+    (file-name-as-directory (expand-file-name "snippets" dotemacs-dir)))
+  (unless (file-exists-p dotemacs-yasnippets-dir)
+    (make-directory dotemacs-yasnippets-dir))
+
+  (setq yas-snippet-dirs
+        '(dotemacs-yasnippets-dir))
+
+  (add-to-list 'hippie-expand-try-functions-list
+               'yas-hippie-try-expand)
+
+  (yas-global-mode +1)
+  :blackout)
+
+(use-package flyspell
+  :config (flyspell-mode +1))
+
+(use-package flycheck
+  :ensure t
+  :config (global-flycheck-mode +1)
   :blackout)
 
 (provide 'init)
