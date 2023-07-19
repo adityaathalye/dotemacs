@@ -200,6 +200,49 @@ Usually customisations made from the UI go into `custom-file'.")
   (global-company-mode t)
   :blackout)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Remember states of files, buffer, desktop
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package recentf
+  :config
+  (setq recentf-save-file (expand-file-name "recentf"
+                                            dotemacs-savefile-dir)
+        recentf-max-saved-items 1000
+        recentf-max-menu-items 10
+        recentf-auto-cleanup 'never)
+  (recentf-mode +1)
+  :blackout)
+
+(use-package savehist
+  :config
+  (setq savehist-additional-variables
+        '(search-ring regexp-search-ring)
+        savehist-autosave-inerval 60
+        savehist-file (expand-file-name "savehist"
+                                        dotemacs-savefile-dir)))
+
+(use-package saveplace
+  :config
+  (setq save-place-file
+        (expand-file-name "saveplace" dotemacs-savefile-dir))
+  (save-place-mode +1))
+
+(use-package desktop
+  :config
+  (add-to-list 'desktop-path dotemacs-savefile-dir)
+  (setq desktop-dirname dotemacs-savefile-dir
+        desktop-auto-save-timeout 30)
+
+  (defun adi/desktop-read-after-emacs-startup ()
+    (when (file-exists-p
+           (expand-file-name desktop-base-file-name desktop-dirname))
+      (desktop-read)))
+  ;; does not work with 'after-init-hook
+  (add-hook 'emacs-startup-hook #'adi/desktop-read-after-emacs-startup)
+
+  (desktop-save-mode 1))
+
+  :ensure t
 
 ;;; Lispy editing support
 
