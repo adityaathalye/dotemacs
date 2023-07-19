@@ -291,6 +291,16 @@ Usually customisations made from the UI go into `custom-file'.")
   (setq which-key-sort-order 'which-key-description-order)
   :blackout)
 
+(use-package golden-ratio
+  ;; https://github.com/roman/golden-ratio.el
+  :ensure t
+  :config
+  (golden-ratio-mode +1)
+  ;; Set auto scale to `t' for wide screens, but not for 16:10, 1900px HD displays
+  (setq golden-ratio-auto-scale nil
+        ;; golden-ratio-wide-adjust-factor 1
+        ;; golden-ratio-adjust-factor .8
+        ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Lispy editing support
