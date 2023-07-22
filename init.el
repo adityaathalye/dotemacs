@@ -295,6 +295,12 @@ Usually customisations made from the UI go into `custom-file'.")
 
   (desktop-save-mode 1))
 
+(use-package super-save ; h/t bbatsov/prelude
+  :ensure t
+  :config
+  (super-save-mode +1)
+  :blackout)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; More "heads-up display" like behaviour
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
