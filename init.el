@@ -185,7 +185,7 @@ Usually customisations made from the UI go into `custom-file'.")
 ;; It integrates seamlessly with use-package.
 (use-package blackout)
 
-(use-package helpful ; h/t systemcrafters
+(use-package helpful ; h/t systemcrafters.net
   ;; https://github.com/Wilfred/helpful
   :ensure t
   :bind (("C-h f" . #'helpful-callable)
