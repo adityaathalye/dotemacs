@@ -381,7 +381,7 @@ Usually customisations made from the UI go into `custom-file'.")
                'yas-hippie-try-expand)
 
   (yas-global-mode +1)
-  :blackout)
+  :blackout yas-minor-mode)
 
 (use-package flyspell
   :config (flyspell-mode +1))
