@@ -319,6 +319,13 @@ Usually customisations made from the UI go into `custom-file'.")
   (setq which-key-sort-order 'which-key-description-order)
   :blackout)
 
+(use-package ace-window
+  :ensure t
+  :bind
+  (:map global-map
+        ("s-w" . 'ace-window)
+        ([remap other-window] . 'ace-window)))
+
 (use-package golden-ratio
   ;; https://github.com/roman/golden-ratio.el
   :ensure t
