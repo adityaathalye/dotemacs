@@ -84,6 +84,8 @@ Usually customisations made from the UI go into `custom-file'.")
  create-lockfiles nil
  tab-always-indent 'complete
  tab-first-completion 'word
+ enable-recursive-minibuffers t
+ minibuffer-depth-indicate-mode t
  uniquify-buffer-name-style 'forward
  uniquify-after-kill-buffer-p t ; rename after killing uniquified
  uniquify-ignore-buffers-re "^\\*") ; spare special buffers
@@ -250,8 +252,6 @@ Usually customisations made from the UI go into `custom-file'.")
   (define-key adi/multi-cursor-keymap (kbd "C-p") 'mc/mark-previous-like-this)
   (define-key adi/multi-cursor-keymap (kbd "C-a") 'mc/mark-all-like-this)
   :bind-keymap ("C-c m" . adi/multi-cursor-keymap))
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Remember states of files, buffer, desktop
