@@ -200,60 +200,6 @@ Usually customisations made from the UI go into `custom-file'.")
          ("C-c C-d" . #'helpful-at-point)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; General text viewing and editing
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Enable narrowings to enhance focus, and reduce accidental
-;; edits of nonfocus areas (thanks to save-restrictions).
-;; h/t bbatsov/prelude
-;; Note: `C-x n w` makes all visible again.
-(put 'narrow-to-region 'disabled nil)
-(put 'narrow-to-page 'disabled nil)
-(put 'narrow-to-defun 'disabled nil)
-
-;; COMplete ANYthing, please!
-;; TODO: instead try radian's completion system
-;;; ref: https://github.com/radian-software/radian
-(use-package company
-  :bind (:map global-map
-              ("TAB" . company-indent-or-complete-common)
-              ;; Got to love the name hippie-expand. Use this for general
-              ;; expansions, because company-complete is good for the
-              ;; current/narrow-case expansions. By default, `M-/` binds
-              ;; to the less powerful `dabbrev-expand`. To alter search
-              ;; options, :config the hippie-expand-try-functions-list.
-              ("M-/" . hippie-expand))
-  :config (setq company-idle-delay 0.1
-                company-minimum-prefix-length 2)
-  (global-company-mode t)
-  :blackout)
-
-;; Selections
-(use-package expand-region
-  :ensure t
-  :bind
-  (("C-=" . er/expand-region)
-   ("C-M-=" . er/contract-region)))
-
-;; Multiple cursors
-(use-package multiple-cursors
-  :ensure t
-  :config
-  ;; Idea taken from "Emacs: Define Key Sequence"
-  ;; ref: http://ergoemacs.org/emacs/emacs_keybinding_power_of_keys_sequence.html
-  ;; define prefix keymap for multiple cursors
-  (define-prefix-command 'adi/multi-cursor-keymap)
-  (define-key adi/multi-cursor-keymap (kbd "e") 'mc/edit-lines)
-  (define-key adi/multi-cursor-keymap (kbd "a") 'mc/mark-all-like-this-dwim)
-  (define-key adi/multi-cursor-keymap (kbd "r") 'mc/mark-all-in-region-regexp)
-  (define-key adi/multi-cursor-keymap (kbd "s") 'mc/mark-all-symbols-like-this-in-defun)
-  (define-key adi/multi-cursor-keymap (kbd "w") 'mc/mark-all-words-like-this-in-defun)
-  (define-key adi/multi-cursor-keymap (kbd "C-n") 'mc/mark-next-like-this)
-  (define-key adi/multi-cursor-keymap (kbd "C-p") 'mc/mark-previous-like-this)
-  (define-key adi/multi-cursor-keymap (kbd "C-a") 'mc/mark-all-like-this)
-  :bind-keymap ("C-c m" . adi/multi-cursor-keymap))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Remember states of files, buffer, desktop
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package recentf
@@ -302,7 +248,8 @@ Usually customisations made from the UI go into `custom-file'.")
   :blackout)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; More "heads-up display" like behaviour
+;; Manage windows, buffers, movement, navigation and create a more
+;; "heads up display" kind of experience.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package ibuffer
@@ -369,6 +316,60 @@ Usually customisations made from the UI go into `custom-file'.")
     (add-to-list 'golden-ratio-extra-commands
                  cmd))
   :blackout)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; General text viewing and editing
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Enable narrowings to enhance focus, and reduce accidental
+;; edits of nonfocus areas (thanks to save-restrictions).
+;; h/t bbatsov/prelude
+;; Note: `C-x n w` makes all visible again.
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-defun 'disabled nil)
+
+;; COMplete ANYthing, please!
+;; TODO: instead try radian's completion system
+;;; ref: https://github.com/radian-software/radian
+(use-package company
+  :bind (:map global-map
+              ("TAB" . company-indent-or-complete-common)
+              ;; Got to love the name hippie-expand. Use this for general
+              ;; expansions, because company-complete is good for the
+              ;; current/narrow-case expansions. By default, `M-/` binds
+              ;; to the less powerful `dabbrev-expand`. To alter search
+              ;; options, :config the hippie-expand-try-functions-list.
+              ("M-/" . hippie-expand))
+  :config (setq company-idle-delay 0.1
+                company-minimum-prefix-length 2)
+  (global-company-mode t)
+  :blackout)
+
+;; Selections
+(use-package expand-region
+  :ensure t
+  :bind
+  (("C-=" . er/expand-region)
+   ("C-M-=" . er/contract-region)))
+
+;; Multiple cursors
+(use-package multiple-cursors
+  :ensure t
+  :config
+  ;; Idea taken from "Emacs: Define Key Sequence"
+  ;; ref: http://ergoemacs.org/emacs/emacs_keybinding_power_of_keys_sequence.html
+  ;; define prefix keymap for multiple cursors
+  (define-prefix-command 'adi/multi-cursor-keymap)
+  (define-key adi/multi-cursor-keymap (kbd "e") 'mc/edit-lines)
+  (define-key adi/multi-cursor-keymap (kbd "a") 'mc/mark-all-like-this-dwim)
+  (define-key adi/multi-cursor-keymap (kbd "r") 'mc/mark-all-in-region-regexp)
+  (define-key adi/multi-cursor-keymap (kbd "s") 'mc/mark-all-symbols-like-this-in-defun)
+  (define-key adi/multi-cursor-keymap (kbd "w") 'mc/mark-all-words-like-this-in-defun)
+  (define-key adi/multi-cursor-keymap (kbd "C-n") 'mc/mark-next-like-this)
+  (define-key adi/multi-cursor-keymap (kbd "C-p") 'mc/mark-previous-like-this)
+  (define-key adi/multi-cursor-keymap (kbd "C-a") 'mc/mark-all-like-this)
+  :bind-keymap ("C-c m" . adi/multi-cursor-keymap))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Lispy editing support
