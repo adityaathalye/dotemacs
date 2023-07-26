@@ -326,6 +326,28 @@ Usually customisations made from the UI go into `custom-file'.")
         ("s-w" . 'ace-window)
         ([remap other-window] . 'ace-window)))
 
+(use-package avy
+  :ensure t)
+
+(use-package key-chord
+  :ensure t
+  :config
+  (key-chord-mode +1)
+
+  (setq key-chord-one-key-delay 0.2)           ; e.g. "jj", default 0.2
+  (setq key-chord-two-keys-delay 0.2)          ; e.g. "jk", default 0.1
+  (setq key-chord-safety-interval-backward 0.5) ; default 0.1 is too close to key delays
+  (setq key-chord-safety-interval-forward 0) ; default 0.35 causes laggy experience
+
+  (key-chord-define-global "jj" 'avy-goto-word-1)
+  (key-chord-define-global "jl" 'avy-goto-line)
+  (key-chord-define-global "jk" 'avy-goto-char)
+  (key-chord-define-global "XX" 'execute-extended-command)
+  (key-chord-define-global "yy" 'yank-from-kill-ring)
+  (key-chord-define-global "g;" 'ace-window)
+  (key-chord-define-global ";g" 'ace-window)
+  :blackout)
+
 (use-package golden-ratio
   ;; https://github.com/roman/golden-ratio.el
   :ensure t
@@ -338,7 +360,12 @@ Usually customisations made from the UI go into `custom-file'.")
         )
   ;; Make golden ratio play nice with other modes
   (dolist (cmd '(ace-window
-                 magit-status))
+                 magit-status
+                 avy-goto-char
+                 avy-goto-char-2
+                 avy-goto-word-0
+                 avy-goto-word-1
+                 avy-goto-line))
     (add-to-list 'golden-ratio-extra-commands
                  cmd))
   :blackout)
