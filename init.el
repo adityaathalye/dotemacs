@@ -390,9 +390,20 @@ Usually customisations made from the UI go into `custom-file'.")
   :bind
   (("M-[" . paredit-wrap-square)
    ("M-{" . paredit-wrap-curly))
-  :hook ((emacs-lisp-mode lisp-interaction-mode)
+  :hook ((emacs-lisp-mode lisp-interaction-mode ielm-mode)
          . paredit-mode)
   :blackout)
+
+(use-package eldoc
+  :ensure t
+  :config
+  (global-eldoc-mode t)
+  :custom ; h/t jwiegley/dot-emacs
+  (eldoc-echo-area-use-multiline-p t)
+  (eldoc-echo-area-display-truncation-message nil)
+  ;; for hooks, ref: https://www.emacswiki.org/emacs/ElDoc
+  :hook ((emacs-lisp-mode lisp-interaction-mode ielm-mode)
+         . eldoc-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Programming and Writing workflow support
