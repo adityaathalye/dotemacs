@@ -335,7 +335,13 @@ Usually customisations made from the UI go into `custom-file'.")
   (setq golden-ratio-auto-scale nil
         ;; golden-ratio-wide-adjust-factor 1
         ;; golden-ratio-adjust-factor .8
-        ))
+        )
+  ;; Make golden ratio play nice with other modes
+  (dolist (cmd '(ace-window
+                 magit-status))
+    (add-to-list 'golden-ratio-extra-commands
+                 cmd))
+  :blackout)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Lispy editing support
