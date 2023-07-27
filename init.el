@@ -372,6 +372,9 @@ Usually customisations made from the UI go into `custom-file'.")
   (define-key adi/multi-cursor-keymap (kbd "C-a") 'mc/mark-all-like-this)
   :bind-keymap ("C-c m" . adi/multi-cursor-keymap))
 
+(use-package wgrep ; editable grep buffers FTW!
+  :ensure t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Lispy editing support
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
