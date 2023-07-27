@@ -253,6 +253,45 @@ Usually customisations made from the UI go into `custom-file'.")
 ;; "heads up display" kind of experience.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(use-package counsel ; brings in ivy, and swiper too
+  :ensure t
+  :config
+  (ivy-mode +1)
+  :bind
+  (:map counsel-find-file-map
+        ("C-l" . counsel-up-directory)
+        :map global-map
+        ("M-x" . counsel-M-x)
+        ("C-c '" . counsel-imenu)
+        ("C-x C-f" . counsel-find-file)
+        ("C-c C-f" . counsel-recentf)
+        ("C-c g" . counsel-git)         ; find files respecting gitignore
+        ("C-c k" . counsel-ag)
+        ("C-c l" . counsel-locate))
+  :blackout)
+
+(use-package swiper
+  :ensure t
+  :bind
+  (:map global-map
+        ("C-s" . swiper)))
+
+(use-package ivy
+  :ensure t
+  :config
+  (ivy-mode t)
+  (setq ivy-use-virtual-buffers t
+        ivy-count-format "%d/%d") ; per the docs
+  :blackout)
+
+(use-package ivy-rich ; h/t suvratapte/dot-emacs-dot-d
+  :ensure t
+  :custom
+  (ivy-rich-path-style 'abbreviate)
+  :config
+  (ivy-rich-mode +1)
+  :blackout)
+
 (use-package ibuffer
   :bind (:map global-map
               ("C-x C-b" . ibuffer-other-window))
@@ -291,7 +330,7 @@ Usually customisations made from the UI go into `custom-file'.")
   (key-chord-define-global "jl" 'avy-goto-line)
   (key-chord-define-global "jk" 'avy-goto-char)
   (key-chord-define-global "XX" 'execute-extended-command)
-  (key-chord-define-global "yy" 'yank-from-kill-ring)
+  (key-chord-define-global "yy" 'counsel-yank-pop)
   (key-chord-define-global "g;" 'ace-window)
   (key-chord-define-global ";g" 'ace-window)
   :blackout)
