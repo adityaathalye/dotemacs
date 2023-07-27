@@ -203,6 +203,7 @@ Usually customisations made from the UI go into `custom-file'.")
 ;;; Remember states of files, buffer, desktop
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package recentf
+  :ensure t
   :config
   (setq recentf-save-file (expand-file-name "recentf"
                                             dotemacs-savefile-dir)
