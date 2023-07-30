@@ -190,6 +190,8 @@ Usually customisations made from the UI go into `custom-file'.")
 (use-package helpful ; h/t systemcrafters.net
   ;; https://github.com/Wilfred/helpful
   :ensure t
+  :config
+  (setq helpful-max-buffers 1) ; but actually we want it to reuse buffer
   :bind (("C-h f" . #'helpful-callable)
          ("C-h F" . #'helpful-function) ; exclude macros
          ("C-h v" . #'helpful-variable)
@@ -197,7 +199,8 @@ Usually customisations made from the UI go into `custom-file'.")
          ("C-h x" . #'helpful-command)
          ;; Lookup the current symbol at point. C-c C-d is
          ;; a common keybinding for this in lisp modes.
-         ("C-c C-d" . #'helpful-at-point)))
+         ("C-c C-d" . #'helpful-at-point))
+  :blackout)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Remember states of files, buffer, desktop
