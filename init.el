@@ -265,7 +265,8 @@ Usually customisations made from the UI go into `custom-file'.")
         ("C-l" . counsel-up-directory)
         :map global-map
         ("M-x" . counsel-M-x)
-        ("C-c '" . counsel-imenu)
+        ("C-c c" . counsel-company)
+        ("C-c i" . counsel-imenu)
         ("C-x C-f" . counsel-find-file)
         ("C-c C-f" . counsel-recentf)
         ("C-c g" . counsel-git)         ; find files respecting gitignore
@@ -276,8 +277,11 @@ Usually customisations made from the UI go into `custom-file'.")
 (use-package swiper
   :ensure t
   :bind
-  (:map global-map
-        ("C-s" . swiper)))
+  (:map
+   global-map
+   ("C-s" . swiper)
+   ("C-c t" . swiper-thing-at-point) ; swiper-map prefix key is "C-c"
+   ("C-c a t" . swiper-all-thing-at-point)))
 
 (use-package ivy
   :ensure t
