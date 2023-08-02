@@ -367,6 +367,11 @@ Usually customisations made from the UI go into `custom-file'.")
                  cmd))
   :blackout)
 
+(use-package rotate
+  ;; https://github.com/daichirata/emacs-rotate
+  :ensure t
+  :blackout)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; General text viewing and editing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
