@@ -274,7 +274,8 @@ Usually customisations made from the UI go into `custom-file'.")
         ("C-c C-f" . counsel-recentf)
         ("C-c g" . counsel-git)         ; find files respecting gitignore
         ("C-c k" . counsel-ag)
-        ("C-c l" . counsel-locate))
+        ("C-c l" . counsel-locate)
+        ("C-c b" . counsel-switch-buffer-other-window))
   :blackout)
 
 (use-package swiper
