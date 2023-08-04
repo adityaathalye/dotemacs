@@ -287,12 +287,14 @@ Usually customisations made from the UI go into `custom-file'.")
    ("C-c t" . swiper-thing-at-point) ; swiper-map prefix key is "C-c"
    ("C-c a t" . swiper-all-thing-at-point)))
 
+;; Note: Use "M-o" after "C-x C-f" or "C-s" for additional options
+;; for the context for the thing selected in the minibuffer.
 (use-package ivy
   :ensure t
   :config
   (ivy-mode t)
   (setq ivy-use-virtual-buffers t
-        ivy-count-format "%d/%d") ; per the docs
+        ivy-count-format "%d/%d | ")    ; per the docs
   :blackout)
 
 (use-package ivy-rich ; h/t suvratapte/dot-emacs-dot-d
