@@ -258,6 +258,21 @@ Usually customisations made from the UI go into `custom-file'.")
   (super-save-mode +1)
   :blackout)
 
+(use-package amx ; h/t Protesilaos Stavrou
+  ;; NOTES: When amx is active:
+  ;; - "C-h f" calls describe-function
+  ;; - "M-." jumps to definition
+  ;; - "C-h w" shows keybindings for thing at point
+  :ensure t
+  :config
+  (setq amx-save-file
+        (expand-file-name "amx-items" dotemacs-savefile-dir))
+  (setq amx-backend 'ivy) ; integrates with counsel-M-x
+  (setq amx-show-key-bindings t) ; t by default
+  ;; (add-to-list 'amx-ignored-command-matchers "") ; to ignore commands
+  (amx-mode +1)
+  :blackout)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Manage windows, buffers, movement, navigation and create a more
 ;; "heads up display" kind of experience.
