@@ -205,6 +205,10 @@ Usually customisations made from the UI go into `custom-file'.")
          ("C-c C-d" . #'helpful-at-point))
   :blackout)
 
+(use-package command-log-mode
+  :ensure t
+  :blackout)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Remember states of files, buffer, desktop
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
