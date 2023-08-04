@@ -497,6 +497,10 @@ Usually customisations made from the UI go into `custom-file'.")
   (yas-global-mode +1)
   :blackout yas-minor-mode)
 
+(use-package yasnippet-snippets
+  :ensure t
+  :blackout)
+
 (use-package flyspell
   :config (flyspell-mode +1))
 
