@@ -508,7 +508,7 @@ Usually customisations made from the UI go into `custom-file'.")
     (make-directory dotemacs-yasnippets-dir))
 
   (setq yas-snippet-dirs
-        '(dotemacs-yasnippets-dir))
+        (list dotemacs-yasnippets-dir))
 
   (add-to-list 'hippie-expand-try-functions-list
                'yas-hippie-try-expand)
