@@ -313,7 +313,7 @@ Usually customisations made from the UI go into `custom-file'.")
   :config
   (ivy-mode t)
   (setq ivy-use-virtual-buffers t
-        ivy-count-format "%d/%d | ")    ; per the docs
+        ivy-count-format "%d/%d: ")    ; per the docs
   :blackout)
 
 (use-package ivy-rich ; h/t suvratapte/dot-emacs-dot-d
