@@ -518,6 +518,9 @@ Usually customisations made from the UI go into `custom-file'.")
 
 (use-package yasnippet-snippets
   :ensure t
+  :requires yasnippet
+  :config
+  (yasnippet-snippets-initialize)
   :blackout)
 
 (use-package flyspell
