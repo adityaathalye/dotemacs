@@ -418,7 +418,7 @@ Usually customisations made from the UI go into `custom-file'.")
               ;; to the less powerful `dabbrev-expand`. To alter search
               ;; options, :config the hippie-expand-try-functions-list.
               ("M-/" . hippie-expand))
-  :config (setq company-idle-delay 0.1
+  :config (setq company-idle-delay 0.3
                 company-minimum-prefix-length 2)
   (global-company-mode t)
   :blackout)
