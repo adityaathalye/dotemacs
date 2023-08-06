@@ -16,39 +16,39 @@
 ;;; Code:
 
 ;; Set the low bar Emacs compatibility high
-(defvar dotemacs-min-version "28.1")
+(defvar adi/dotemacs-min-version "28.1")
 
-(when (version< emacs-version dotemacs-min-version)
+(when (version< emacs-version adi/dotemacs-min-version)
   (error "We demand spiffy new Emacs, at least v%s, but you have v%s"
-         dotemacs-min-version
+         adi/dotemacs-min-version
          emacs-version))
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DIRECTORY STRUCTURE
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Take clues from bbatsov/prelude, except keep structure relative to our
-;; initial dotemacs-dir path. This way we can start the user's emacs via
+;; initial adi/dotemacs-dir path. This way we can start the user's emacs via
 ;; ~/.emacs.d symlinked to the dotemacs repo, and develop/debug against
 ;; the repo without potentially overwriting transient state files of the
 ;; daily driver .emacs.d.
 
-(defvar dotemacs-dir
+(defvar adi/dotemacs-dir
   (file-name-directory (or load-file-name (buffer-file-name)))
   "The dotemacs' root.  Normally it should be ~/.emacs.d.")
 
-(defvar dotemacs-custom-file (expand-file-name "custom.el" dotemacs-dir)
+(defvar adi/dotemacs-custom-file (expand-file-name "custom.el" adi/dotemacs-dir)
   "Make Emacs add customisations here, instead of the init file.
 Usually customisations made from the UI go into `custom-file'.")
-(setq custom-file dotemacs-custom-file)
-(unless (file-exists-p dotemacs-custom-file)
-  (make-empty-file dotemacs-custom-file))
+(setq custom-file adi/dotemacs-custom-file)
+(unless (file-exists-p adi/dotemacs-custom-file)
+  (make-empty-file adi/dotemacs-custom-file))
 (load-file custom-file) ; load *now*, instead of unpredictable load sequence
 
-(defvar dotemacs-savefile-dir (file-name-as-directory
-                               (expand-file-name "savefile" dotemacs-dir))
+(defvar adi/dotemacs-savefile-dir (file-name-as-directory
+                               (expand-file-name "savefile" adi/dotemacs-dir))
   "This folder stores all the automatically generated save/history-files.")
-(unless (file-exists-p dotemacs-savefile-dir)
-  (make-directory dotemacs-savefile-dir))
+(unless (file-exists-p adi/dotemacs-savefile-dir)
+  (make-directory adi/dotemacs-savefile-dir))
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; BETTER DEFAULTS
@@ -153,9 +153,9 @@ Usually customisations made from the UI go into `custom-file'.")
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
-;; Set package download directory relative to the dotemacs-dir
+;; Set package download directory relative to the adi/dotemacs-dir
 (setq package-user-dir (file-name-as-directory
-                        (expand-file-name "elpa" dotemacs-dir)))
+                        (expand-file-name "elpa" adi/dotemacs-dir)))
 
 (package-initialize)
 (unless package-archive-contents
@@ -216,7 +216,7 @@ Usually customisations made from the UI go into `custom-file'.")
   :ensure t
   :config
   (setq recentf-save-file (expand-file-name "recentf"
-                                            dotemacs-savefile-dir)
+                                            adi/dotemacs-savefile-dir)
         recentf-max-saved-items 1000
         recentf-max-menu-items 10
         recentf-auto-cleanup 'never)
@@ -229,18 +229,18 @@ Usually customisations made from the UI go into `custom-file'.")
         '(search-ring regexp-search-ring)
         savehist-autosave-inerval 60
         savehist-file (expand-file-name "savehist"
-                                        dotemacs-savefile-dir)))
+                                        adi/dotemacs-savefile-dir)))
 
 (use-package saveplace
   :config
   (setq save-place-file
-        (expand-file-name "saveplace" dotemacs-savefile-dir))
+        (expand-file-name "saveplace" adi/dotemacs-savefile-dir))
   (save-place-mode +1))
 
 (use-package desktop
   :config
-  (add-to-list 'desktop-path dotemacs-savefile-dir)
-  (setq desktop-dirname dotemacs-savefile-dir
+  (add-to-list 'desktop-path adi/dotemacs-savefile-dir)
+  (setq desktop-dirname adi/dotemacs-savefile-dir
         desktop-auto-save-timeout 30)
 
   (defun adi/desktop-read-after-emacs-startup ()
@@ -266,7 +266,7 @@ Usually customisations made from the UI go into `custom-file'.")
   :ensure t
   :config
   (setq amx-save-file
-        (expand-file-name "amx-items" dotemacs-savefile-dir))
+        (expand-file-name "amx-items" adi/dotemacs-savefile-dir))
   (setq amx-backend 'ivy) ; integrates with counsel-M-x
   (setq amx-show-key-bindings t) ; t by default
   ;; (add-to-list 'amx-ignored-command-matchers "") ; to ignore commands
@@ -502,13 +502,13 @@ Usually customisations made from the UI go into `custom-file'.")
 (use-package yasnippet
   :ensure t
   :config
-  (defvar dotemacs-yasnippets-dir
-    (file-name-as-directory (expand-file-name "snippets" dotemacs-dir)))
-  (unless (file-exists-p dotemacs-yasnippets-dir)
-    (make-directory dotemacs-yasnippets-dir))
+  (defvar adi/dotemacs-yasnippets-dir
+    (file-name-as-directory (expand-file-name "snippets" adi/dotemacs-dir)))
+  (unless (file-exists-p adi/dotemacs-yasnippets-dir)
+    (make-directory adi/dotemacs-yasnippets-dir))
 
   (setq yas-snippet-dirs
-        (list dotemacs-yasnippets-dir))
+        (list adi/dotemacs-yasnippets-dir))
 
   (add-to-list 'hippie-expand-try-functions-list
                'yas-hippie-try-expand)
