@@ -524,7 +524,12 @@ Usually customisations made from the UI go into `custom-file'.")
   :blackout)
 
 (use-package flyspell
-  :config (flyspell-mode +1))
+  ;; "C-," to goto next error,
+  ;; "C-M-i" to auto-fix current error (cycles options)
+  :ensure nil ; built in
+  :hook ((text-mode org-mode) . flyspell-mode)
+  :hook ((prog-mode) . flyspell-prog-mode)
+  :blackout)
 
 (use-package flycheck
   :ensure t
