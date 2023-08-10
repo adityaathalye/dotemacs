@@ -290,6 +290,8 @@ Usually customisations made from the UI go into `custom-file'.")
         ("C-c c" . counsel-company)
         ("C-c i" . counsel-imenu)
         ("C-x C-f" . counsel-find-file)
+        ;; because counsel find file does not let us edit results
+        ("C-M-y" . ivy-insert-current-full)
         ("C-c C-f" . counsel-recentf)
         ("C-c g" . counsel-git)         ; find files respecting gitignore
         ("C-c k" . counsel-ag)
