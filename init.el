@@ -75,6 +75,8 @@ Usually customisations made from the UI go into `custom-file'.")
  large-file-warning-threshold (* 100 1024 1024)
  ;; Always load newest byte code. cf. bbatsov/prelude
  load-prefer-newer t
+ ;; LSP-mode performance tweaks
+ read-process-output-max (* 1024 1024) ; 1mb
 
  ;; INTERACTIONS
  inhibit-startup-message t
@@ -541,6 +543,20 @@ Usually customisations made from the UI go into `custom-file'.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Programming languages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package lsp-mode
+  :ensure t
+  :hook ((clojure-mode clojurescript-mode clojurec-mode) . lsp-deferred)
+  :config
+  ;; Perf. tweaks. Ref: https://emacs-lsp.github.io/lsp-mode/page/performance/
+  (setq lsp-idle-delay 0.500 ; tweak if lsp-mode gets sluggish
+        lsp-log-io nil)
+
+  :commands (lsp lsp-deferred))
+
+(use-package lsp-ivy
+  :ensure t
+  :commands lsp-ivy-workspace-symbol)
 
 (use-package clojure-mode
   :ensure t
