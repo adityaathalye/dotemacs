@@ -468,15 +468,21 @@ Usually customisations made from the UI go into `custom-file'.")
   (show-paren-mode t)
   :blackout)
 
-(use-package paredit
-  ;; Handy configs available at the wiki https://www.emacswiki.org/emacs/ParEdit
-  ;; including combining with eldoc, "electric" enabled modes etc.
+(use-package smartparens               ; h/t bbatsov/prelude use it like paredit
   :ensure t
-  :bind
-  (("M-[" . paredit-wrap-square)
-   ("M-{" . paredit-wrap-curly))
-  :hook ((emacs-lisp-mode lisp-interaction-mode ielm-mode)
-         . paredit-mode)
+  :config
+  (require 'smartparens-config)
+  (setq sp-base-key-bindings 'paredit
+        sp-autoskip-closing-pair 'always
+        sp-hybrid-kill-entire-symbol nil)
+  (sp-use-paredit-bindings)
+  (show-smartparens-global-mode +1)
+  :hook ((emacs-lisp-mode
+          lisp-mode
+          lisp-interaction-mode
+          ielm-mode
+          clojure-mode
+          cider-repl-mode) . smartparens-strict-mode)
   :blackout)
 
 (use-package eldoc
