@@ -317,7 +317,10 @@ Usually customisations made from the UI go into `custom-file'.")
   :config
   (ivy-mode t)
   (setq ivy-use-virtual-buffers t
-        ivy-count-format "%d/%d: ")    ; per the docs
+        ivy-count-format "%d/%d: " ; per the docs
+        ;; don't start ivy prompts with '^' regex match,
+        ;; because we want fuzzier matching by default
+        ivy-initial-inputs-alist nil)
   :blackout)
 
 (use-package ivy-rich ; h/t suvratapte/dot-emacs-dot-d
