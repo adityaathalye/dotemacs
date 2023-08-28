@@ -83,6 +83,7 @@ Usually customisations made from the UI go into `custom-file'.")
  ring-bell-function 'ignore ; no beeps
  require-final-newline t ; always well-form files
  confirm-kill-emacs 'y-or-n-p ; instead of disabling 'C-x C-c'
+ use-dialog-box nil ; no popups please
  create-lockfiles nil
  tab-always-indent 'complete
  tab-first-completion 'word
