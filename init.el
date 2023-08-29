@@ -555,18 +555,46 @@ Usually customisations made from the UI go into `custom-file'.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package lsp-mode
+  ;; ref: https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
   :ensure t
-  :hook ((clojure-mode clojurescript-mode clojurec-mode) . lsp-deferred)
+  :init
+  (setq lsp-keymap-prefix "C-c C-l")
+  :hook (lsp-mode . lsp-enable-which-key-integration)
   :config
-  ;; Perf. tweaks. Ref: https://emacs-lsp.github.io/lsp-mode/page/performance/
-  (setq lsp-idle-delay 0.500 ; tweak if lsp-mode gets sluggish
-        lsp-log-io nil)
+  (setq ;; Perf. tweaks. Ref: https://emacs-lsp.github.io/lsp-mode/page/performance/
+        lsp-idle-delay 0.500 ; bump higher if lsp-mode gets sluggish
+        lsp-log-io nil
+        ; lsp-enable-indentation nil ; set 'nil' to use cider indentation instead of lsp
+        ; lsp-enable-completion-at-point nil; set 'nil' to use cider completion instead of lsp
 
+        ;; No semgrep. https://emacs-lsp.github.io/lsp-mode/page/lsp-semgrep/
+        ;; IDK why semgrep is on by default, docs are thin on configuring it
+        ;; I don't want the error 'Command "semgrep lsp" is not present on the path.'
+        ;; because I don't want to "pip install semgrep --user".
+        lsp-semgrep-server-command nil)
   :commands (lsp lsp-deferred))
+
+(use-package lsp-treemacs
+  :ensure t
+  :after lsp-mode
+  :commands lsp-treemacs-errors-list
+  :config
+  (setq treemacs-space-between-root-nodes nil))
+
+(use-package lsp-ui
+  :ensure t
+  :after lsp-mode
+  :commands lsp-ui-mode)
 
 (use-package lsp-ivy
   :ensure t
+  :after lsp-mode
   :commands lsp-ivy-workspace-symbol)
+
+;; dap-mode, optionally to use LANGUAGE-specific debuggers
+;; cf. https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
+;; (use-package dap-mode)
+;; (use-package dap-LANGUAGE :ensue t :after dap-mode) ; load dap adapter for LANGUAGE
 
 (use-package clojure-mode
   :ensure t
