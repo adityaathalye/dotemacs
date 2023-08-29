@@ -29,3 +29,7 @@ flycheck_*.el
 .dir-locals.el
 # custom temporary directories
 savefile/
+# lsp-mode cache for auto-installed lsp servers
+/.cache/
+# lsp-mode workspace dirs
+/workspace/

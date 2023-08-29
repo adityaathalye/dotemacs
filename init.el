@@ -50,6 +50,12 @@ Usually customisations made from the UI go into `custom-file'.")
 (unless (file-exists-p adi/dotemacs-savefile-dir)
   (make-directory adi/dotemacs-savefile-dir))
 
+(defvar adi/dotemacs-cache-dir (file-name-as-directory
+                                (expand-file-name ".cache" adi/dotemacs-dir))
+  "Store things like lsp servers that lsp-mode can auto-download.")
+(unless (file-exists-p adi/dotemacs-cache-dir)
+  (make-directory adi/dotemacs-cache-dir))
+
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; BETTER DEFAULTS
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -559,9 +565,23 @@ Usually customisations made from the UI go into `custom-file'.")
   :ensure t
   :init
   (setq lsp-keymap-prefix "C-c C-l")
+  :hook ((clojure-mode clojurescript-mode clojurec-mode) . lsp-deferred)
   :hook (lsp-mode . lsp-enable-which-key-integration)
+  :custom
+  ;; LSP "workspace" dirs:
+  ;; nb. "workspace" seems to be a confusing concept. It is a VSCode concept
+  ;; that lsp-mode superseded as "session", because lsp-mode was already using
+  ;; the word "workspace" in some other context. See: `lsp-describe-session'.
+  ;; https://github.com/emacs-lsp/lsp-mode/discussions/3095
+  ;; "workspace" directories still seem to server some purpose (no idea what),
+  ;; and seem to be language specific.
+  (lsp-clojure-workspace-dir
+   (file-name-as-directory (expand-file-name "workspace"
+                                             adi/dotemacs-dir)))
   :config
-  (setq ;; Perf. tweaks. Ref: https://emacs-lsp.github.io/lsp-mode/page/performance/
+  (setq lsp-server-install-dir (file-name-as-directory ; install local to dotemacs
+                                (expand-file-name "lsp" adi/dotemacs-cache-dir))
+        ;; Perf. tweaks. Ref: https://emacs-lsp.github.io/lsp-mode/page/performance/
         lsp-idle-delay 0.500 ; bump higher if lsp-mode gets sluggish
         lsp-log-io nil
         ; lsp-enable-indentation nil ; set 'nil' to use cider indentation instead of lsp
@@ -572,6 +592,10 @@ Usually customisations made from the UI go into `custom-file'.")
         ;; I don't want the error 'Command "semgrep lsp" is not present on the path.'
         ;; because I don't want to "pip install semgrep --user".
         lsp-semgrep-server-command nil)
+  ;; LANGUAGE SPECIFIC SETTINGS
+  ;; clojure-lsp: cf. https://clojure-lsp.io/clients/#emacs
+  (add-to-list 'lsp-language-id-configuration
+                `(clojurex-mode . "clojure"))
   :commands (lsp lsp-deferred))
 
 (use-package lsp-treemacs
@@ -597,11 +621,64 @@ Usually customisations made from the UI go into `custom-file'.")
 ;; (use-package dap-LANGUAGE :ensue t :after dap-mode) ; load dap adapter for LANGUAGE
 
 (use-package clojure-mode
+  ;; Brings in clojure-mode for Clj, clojurescript-mode for Cljs,
+  ;; and clojurec-mode for Cljc
+  :ensure t
+  ;; Hook into subword-mode to work with CamelCase tokens like Java classes
+  ;; h/t suvratapte/dot-emacs-dot-d
+  :hook ((clojure-mode . subword-mode)
+         (clojure-mode . yas-minor-mode))
+
+  :config
+  (setq clojure-indent-style 'align-arguments)
+  :blackout "Clj")
+
+(use-package cider
+  ;; Note: Ensure CIDER and lsp-mode play well together, as we use both.
+  ;; - LSP for more static-analysis-y services (completions, lookups, errors etc.),
+  ;; - CIDER for "live" runtime services (enhanced REPL, interactive debugger etc.).
+  :ensure t
+  :after clojure-mode
+  :init
+  ;; Use clojure-lsp for eldoc and completions
+  ;; h/t cider docs and ericdallo/dotfiles/.config/doom/config.el
+  (remove-hook 'eldoc-documentation-functions #'cider-eldoc)
+  (remove-hook 'completion-at-point-functions #'cider-complete-at-point)
+  :config
+  ;; settings h/t suvratapte/dot-emacs-dot-d
+  (setq cider-repl-pop-to-buffer-on-connect t
+        cider-show-error-buffer t
+        cider-auto-select-error-buffer t
+        cider-repl-history-file (expand-file-name "cider-history"
+                                                  adi/dotemacs-savefile-dir)
+        cider-repl-wrap-history t
+        cider-prompt-for-symbol nil
+        cider-repl-use-pretty-printing t
+        nrepl-log-messages nil
+        ;; play nice with lsp-mode
+        ;; h/t ericdallo/dotfiles/.config/doom/config.el
+        cider-font-lock-dynamically nil ; use lsp semantic tokens
+        cider-eldoc-display-for-symbol-at-point nil ; use lsp
+        cider-prompt-for-symbol nil ; use lsp
+        cider-use-xref nil ; use lsp
+        )
+  :blackout)
+
+(use-package flycheck-joker
+  :after (flycheck clojure-mode)
   :ensure t
   :blackout)
 
-(use-package cider
+(use-package flycheck-clj-kondo
+  ;; cf. https://github.com/clj-kondo/clj-kondo
+  ;;
   :ensure t
+  :after (flycheck clojure-mode)
+  :config
+  (dolist (checkers '((clj-kondo-clj . clojure-joker)
+                      (clj-kondo-cljs . clojurescript-joker)
+                      (clj-kondo-cljc . clojure-joker)
+                      (clj-kondo-edn . edn-joker))))
   :blackout)
 
 (provide 'init)
