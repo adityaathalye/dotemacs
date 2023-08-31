@@ -184,8 +184,9 @@ Usually customisations made from the UI go into `custom-file'.")
   (add-to-list 'load-path package-user-dir)
   (require 'use-package))
 
-(setq use-package-always-ensure t)
-(setq use-package-expand-minimally t) ; set nil to debug use-package forms
+(setq use-package-always-ensure t
+      use-package-expand-minimally t ; set nil to debug use-package forms
+      use-package-verbose t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; All the packages!
@@ -218,6 +219,10 @@ Usually customisations made from the UI go into `custom-file'.")
   :ensure t
   :blackout)
 
+(use-package esup
+  ;; emacs startup profiler
+  :blackout)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Remember states of files, buffer, desktop
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -247,6 +252,13 @@ Usually customisations made from the UI go into `custom-file'.")
   (save-place-mode +1))
 
 (use-package desktop
+  ;; Restore Emacs buffers, windows, placement to how it was at shutdown
+  ;; ref: https://www.emacswiki.org/emacs/Desktop
+  :init
+  ;; Reduce startup slowdown due to side effects like Language Servers being
+  ;; started synchronously due to eager restores of programming buffers.
+  ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Saving-Emacs-Sessions.html
+  (setq desktop-restore-eager 1)
   :config
   (add-to-list 'desktop-path adi/dotemacs-savefile-dir)
   (setq desktop-dirname adi/dotemacs-savefile-dir
@@ -533,7 +545,7 @@ Usually customisations made from the UI go into `custom-file'.")
   (add-to-list 'hippie-expand-try-functions-list
                'yas-hippie-try-expand)
 
-  (yas-global-mode +1)
+  (yas-global-mode +1) ; nb. global mode can slow down emacs startup
   :blackout yas-minor-mode)
 
 (use-package yasnippet-snippets
