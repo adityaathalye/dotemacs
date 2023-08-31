@@ -601,7 +601,24 @@ Usually customisations made from the UI go into `custom-file'.")
 (use-package lsp-ui
   :ensure t
   :after lsp-mode
-  :commands lsp-ui-mode)
+  :commands lsp-ui-mode
+  :bind (:map lsp-ui-mode-map ; h/t github.com/bbatsov/prelude
+              ([remap xref-find-definitions] . #'lsp-ui-peek-find-definitions)
+              ([remap xref-find-references] . #'lsp-ui-peek-find-references)
+              ("C-c C-l ." . 'lsp-ui-peek-find-definitions)
+              ("C-c C-l ?" . 'lsp-ui-peek-find-references)
+              ("C-c C-l r" . 'lsp-rename)
+              ("C-c C-l x" . 'lsp-workspace-restart)
+              ("C-c C-l w" . 'lsp-ui-peek-find-workspace-symbol)
+              ("C-c C-l i" . 'lsp-ui-peek-find-implementation)
+              ("C-c C-l d" . 'lsp-describe-thing-at-point)
+              ("C-c C-l e" . 'lsp-execute-code-action))
+  :config
+  ; h/t github.com/bbatsov/prelude
+  (setq lsp-ui-sideline-enable t
+        lsp-ui-doc-enable t
+        lsp-ui-peek-enable t
+        lsp-ui-peek-always-show t))
 
 (use-package lsp-ivy
   :ensure t
