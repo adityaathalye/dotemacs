@@ -598,13 +598,6 @@ Usually customisations made from the UI go into `custom-file'.")
                 `(clojurex-mode . "clojure"))
   :commands (lsp lsp-deferred))
 
-(use-package lsp-treemacs
-  :ensure t
-  :after lsp-mode
-  :commands lsp-treemacs-errors-list
-  :config
-  (setq treemacs-space-between-root-nodes nil))
-
 (use-package lsp-ui
   :ensure t
   :after lsp-mode
@@ -614,6 +607,16 @@ Usually customisations made from the UI go into `custom-file'.")
   :ensure t
   :after lsp-mode
   :commands lsp-ivy-workspace-symbol)
+
+;; treemacs is cool, but I'm not sure I want it yet.
+;; cf: https://github.com/emacs-lsp/lsp-treemacs
+;; and https://github.com/Alexander-Miller/treemacs
+;; (use-package lsp-treemacs
+;;   :ensure t
+;;   :after lsp-mode
+;;   :commands lsp-treemacs-errors-list
+;;   :config
+;;   (setq treemacs-space-between-root-nodes nil))
 
 ;; dap-mode, optionally to use LANGUAGE-specific debuggers
 ;; cf. https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
