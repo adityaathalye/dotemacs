@@ -702,5 +702,17 @@ Usually customisations made from the UI go into `custom-file'.")
         )
   :blackout)
 
+;; clj-refactor can go where clojure-lsp refactor can't go
+(use-package clj-refactor
+  ;; config h/t ericdallo/dotfiles doom emacs config
+  :after clojure-mode
+  :config
+  (setq cljr-warn-on-eval nil
+        cljr-eagerly-build-asts-on-startup nil
+        cljr-add-ns-to-blank-clj-files nil ; use lsp
+        cljr-magic-require-namespaces
+        '(("s"   . "schema.core")
+          ("pp" . "clojure.pprint"))))
+
 (provide 'init)
 ;;; init.el ends here
