@@ -221,7 +221,6 @@ Usually customisations made from the UI go into `custom-file'.")
 
 (use-package helpful ; h/t systemcrafters.net
   ;; https://github.com/Wilfred/helpful
-  :ensure t
   :config
   (setq helpful-max-buffers 1) ; but actually we want it to reuse buffer
   :bind (("C-h f" . #'helpful-callable)
@@ -235,7 +234,6 @@ Usually customisations made from the UI go into `custom-file'.")
   :blackout)
 
 (use-package command-log-mode
-  :ensure t
   :blackout)
 
 (use-package esup
@@ -246,7 +244,6 @@ Usually customisations made from the UI go into `custom-file'.")
 ;;; Remember states of files, buffer, desktop
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package recentf
-  :ensure t
   :config
   (setq recentf-save-file (expand-file-name "recentf"
                                             adi/dotemacs-savefile-dir)
@@ -293,7 +290,6 @@ Usually customisations made from the UI go into `custom-file'.")
   (desktop-save-mode 1))
 
 (use-package super-save ; h/t bbatsov/prelude
-  :ensure t
   :config
   (super-save-mode +1)
   :blackout)
@@ -303,7 +299,6 @@ Usually customisations made from the UI go into `custom-file'.")
   ;; - "C-h f" calls describe-function
   ;; - "M-." jumps to definition
   ;; - "C-h w" shows keybindings for thing at point
-  :ensure t
   :config
   (setq amx-save-file
         (expand-file-name "amx-items" adi/dotemacs-savefile-dir))
@@ -319,7 +314,6 @@ Usually customisations made from the UI go into `custom-file'.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package counsel ; brings in ivy, and swiper too
-  :ensure t
   :config
   (ivy-mode +1)
   :bind
@@ -340,7 +334,6 @@ Usually customisations made from the UI go into `custom-file'.")
   :blackout)
 
 (use-package swiper
-  :ensure t
   :bind
   (:map
    global-map
@@ -351,7 +344,6 @@ Usually customisations made from the UI go into `custom-file'.")
 ;; Note: Use "M-o" after "C-x C-f" or "C-s" for additional options
 ;; for the context for the thing selected in the minibuffer.
 (use-package ivy
-  :ensure t
   :config
   (ivy-mode t)
   (setq ivy-use-virtual-buffers t
@@ -362,7 +354,6 @@ Usually customisations made from the UI go into `custom-file'.")
   :blackout)
 
 (use-package ivy-rich ; h/t suvratapte/dot-emacs-dot-d
-  :ensure t
   :custom
   (ivy-rich-path-style 'abbreviate)
   :config
@@ -375,7 +366,6 @@ Usually customisations made from the UI go into `custom-file'.")
   :blackout)
 
 (use-package which-key
-  :ensure t
   :config (which-key-mode t)
   (setq which-key-idle-delay 0.5)
   ;; Sort based on the key description ignoring case (default
@@ -384,17 +374,16 @@ Usually customisations made from the UI go into `custom-file'.")
   :blackout)
 
 (use-package ace-window
-  :ensure t
   :bind
   (:map global-map
         ("s-w" . 'ace-window)
-        ([remap other-window] . 'ace-window)))
+        ([remap other-window] . 'ace-window))
+  :blackout)
 
 (use-package avy
-  :ensure t)
+  :blackout)
 
 (use-package key-chord
-  :ensure t
   :config
   (key-chord-mode +1)
 
@@ -416,7 +405,6 @@ Usually customisations made from the UI go into `custom-file'.")
   ;; https://github.com/roman/golden-ratio.el
   ;; See also slightly modified version h/t github.com/nebkor
   ;; https://git.sr.ht/~wklew/golden
-  :ensure t
   :config
   (golden-ratio-mode +1)
   ;; Set auto scale to `t' for wide screens, but not for 16:10, 1900px HD displays
@@ -438,7 +426,6 @@ Usually customisations made from the UI go into `custom-file'.")
 
 (use-package rotate
   ;; https://github.com/daichirata/emacs-rotate
-  :ensure t
   :blackout)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -472,14 +459,12 @@ Usually customisations made from the UI go into `custom-file'.")
 
 ;; Selections
 (use-package expand-region
-  :ensure t
   :bind
   (("C-=" . er/expand-region)
    ("C-M-=" . er/contract-region)))
 
 ;; Multiple cursors
 (use-package multiple-cursors
-  :ensure t
   :config
   ;; Idea taken from "Emacs: Define Key Sequence"
   ;; ref: http://ergoemacs.org/emacs/emacs_keybinding_power_of_keys_sequence.html
@@ -496,7 +481,7 @@ Usually customisations made from the UI go into `custom-file'.")
   :bind-keymap ("C-c m" . adi/multi-cursor-keymap))
 
 (use-package wgrep ; editable grep buffers FTW!
-  :ensure t)
+  :blackout)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Lispy editing support
@@ -512,7 +497,6 @@ Usually customisations made from the UI go into `custom-file'.")
   :blackout)
 
 (use-package smartparens               ; h/t bbatsov/prelude use it like paredit
-  :ensure t
   :config
   (require 'smartparens-config)
   (setq sp-base-key-bindings 'paredit
@@ -529,7 +513,6 @@ Usually customisations made from the UI go into `custom-file'.")
   :blackout)
 
 (use-package eldoc
-  :ensure t
   :config
   (global-eldoc-mode t)
   :custom ; h/t jwiegley/dot-emacs
@@ -545,15 +528,12 @@ Usually customisations made from the UI go into `custom-file'.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package magit
-  :ensure t
   :blackout)
 
 (use-package projectile
-  :ensure t
   :blackout)
 
 (use-package yasnippet
-  :ensure t
   :config
   (defvar adi/dotemacs-yasnippets-dir
     (file-name-as-directory (expand-file-name "snippets" adi/dotemacs-dir)))
@@ -570,7 +550,6 @@ Usually customisations made from the UI go into `custom-file'.")
   :blackout yas-minor-mode)
 
 (use-package yasnippet-snippets
-  :ensure t
   :requires yasnippet
   :config
   (yasnippet-snippets-initialize)
@@ -585,7 +564,6 @@ Usually customisations made from the UI go into `custom-file'.")
   :blackout)
 
 (use-package flycheck
-  :ensure t
   :config (global-flycheck-mode +1)
   :blackout)
 
@@ -595,7 +573,6 @@ Usually customisations made from the UI go into `custom-file'.")
 
 (use-package lsp-mode
   ;; ref: https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
-  :ensure t
   :init
   (setq lsp-keymap-prefix "C-c C-l")
   :hook ((clojure-mode clojurescript-mode clojurec-mode) . lsp-deferred)
@@ -632,7 +609,6 @@ Usually customisations made from the UI go into `custom-file'.")
   :commands (lsp lsp-deferred))
 
 (use-package lsp-ui
-  :ensure t
   :after lsp-mode
   :commands lsp-ui-mode
   :bind (:map lsp-ui-mode-map ; h/t github.com/bbatsov/prelude
@@ -654,7 +630,6 @@ Usually customisations made from the UI go into `custom-file'.")
         lsp-ui-peek-always-show t))
 
 (use-package lsp-ivy
-  :ensure t
   :after lsp-mode
   :commands lsp-ivy-workspace-symbol)
 
@@ -662,7 +637,6 @@ Usually customisations made from the UI go into `custom-file'.")
 ;; cf: https://github.com/emacs-lsp/lsp-treemacs
 ;; and https://github.com/Alexander-Miller/treemacs
 ;; (use-package lsp-treemacs
-;;   :ensure t
 ;;   :after lsp-mode
 ;;   :commands lsp-treemacs-errors-list
 ;;   :config
@@ -676,7 +650,6 @@ Usually customisations made from the UI go into `custom-file'.")
 (use-package clojure-mode
   ;; Brings in clojure-mode for Clj, clojurescript-mode for Cljs,
   ;; and clojurec-mode for Cljc
-  :ensure t
   ;; Hook into subword-mode to work with CamelCase tokens like Java classes
   ;; h/t suvratapte/dot-emacs-dot-d
   :hook ((clojure-mode . subword-mode)
@@ -690,7 +663,6 @@ Usually customisations made from the UI go into `custom-file'.")
   ;; Note: Ensure CIDER and lsp-mode play well together, as we use both.
   ;; - LSP for more static-analysis-y services (completions, lookups, errors etc.),
   ;; - CIDER for "live" runtime services (enhanced REPL, interactive debugger etc.).
-  :ensure t
   :after clojure-mode
   :init
   ;; Use clojure-lsp for eldoc and completions
@@ -739,7 +711,6 @@ Usually customisations made from the UI go into `custom-file'.")
 ;; WEB DEVELOPMENT
 
 (use-package web-mode
-  :ensure t
   :config
   ;; for config ref: bbatsov/prelude/modules/prelude-web.el
   ;; e.g. to set web-mode for templating languages,
@@ -749,17 +720,14 @@ Usually customisations made from the UI go into `custom-file'.")
   :blackout)
 
 (use-package json-mode
-  :ensure t
   :blackout)
 
 (use-package js2-mode
-  :ensure t
   :blackout)
 
 ;; DOCUMENTATION FORMATS
 
 (use-package adoc-mode
-  :ensure t
   :blackout)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -817,13 +785,11 @@ Usually customisations made from the UI go into `custom-file'.")
 
 (use-package ox-asciidoc
   ;; Org export backend for org to asciidoc
-  :ensure t
   :blackout)
 
 (use-package org-tree-slide
   ;; Simple org outline based presentation mode
   ;; ref: https://github.com/takaxp/org-tree-slide
-  :ensure t
   :bind (("<f8>" . 'org-tree-slide-mode)
          ("S-<f8>" . 'org-tree-slide-skip-done-toggle)
          :map org-tree-slide-mode-map
