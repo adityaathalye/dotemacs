@@ -395,6 +395,8 @@ Usually customisations made from the UI go into `custom-file'.")
 
 (use-package golden-ratio
   ;; https://github.com/roman/golden-ratio.el
+  ;; See also slightly modified version h/t github.com/nebkor
+  ;; https://git.sr.ht/~wklew/golden
   :ensure t
   :config
   (golden-ratio-mode +1)
