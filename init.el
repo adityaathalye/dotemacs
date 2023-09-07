@@ -714,5 +714,63 @@ Usually customisations made from the UI go into `custom-file'.")
         '(("s"   . "schema.core")
           ("pp" . "clojure.pprint"))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Org Mode specials
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Enable org babel languages
+;; ref: https://orgmode.org/manual/Languages.html#Languages
+;; and: https://orgmode.org/worg/org-contrib/babel/languages.html
+;;
+;; NOTE: If org-babel appears to be broken, it may be an org 9+ compile issue.
+;; If so, purging org mode .elc files helps.
+;; ref: "Org-Mode Evaluation of code disabled #7641"
+;;      https://github.com/syl20bnr/spacemacs/issues/7641#issuecomment-259701129
+;; and: "Org-mode 9: unable to eval code-blocks"
+;;      https://emacs.stackexchange.com/a/28448
+;; Purge this way:
+;; - shut down emacs
+;; - find ~/.emacs.d/elpa/org-9.* -name "*elc" # ensure only orgmode files found
+;; - find ~/.emacs.d/elpa/org-9.* -name "*elc" -delete # re-execute, but with delete
+;; - start emacs
+;; - profit!
+
+(use-package ob-http
+  :blackout)
+
+(use-package ob-sql-mode
+  :blackout)
+
+(use-package ob-clojurescript
+  :blackout)
+
+(use-package ob-kotlin
+  :blackout)
+
+(use-package org
+  :ensure nil
+  :config
+  (setq org-export-coding-system 'utf-8
+        org-babel-clojure-backend 'cider)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((shell . t)
+     (awk . t)
+     (sed . t)
+     (http . t)
+     (clojure . t)
+     (clojurescript . t)
+     (python . t)
+     (kotlin . t)
+     (groovy . t)
+     (sql .t )
+     (sqlite . t)
+     (plantuml . t))))
+
+(use-package ox-asciidoc
+  ;; Org export backend for org to asciidoc
+  :ensure t
+  :blackout)
+
 (provide 'init)
 ;;; init.el ends here
