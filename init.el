@@ -680,6 +680,9 @@ Usually customisations made from the UI go into `custom-file'.")
   (remove-hook 'completion-at-point-functions #'cider-complete-at-point)
   :custom
   (cider-preferred-build-tool 'clj)
+  :bind
+  (:map cider-mode-map
+        ("C-c C-l" . nil))
   :config
   ;; settings h/t suvratapte/dot-emacs-dot-d
   (setq cider-repl-pop-to-buffer-on-connect nil
