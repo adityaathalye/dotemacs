@@ -801,5 +801,18 @@ Usually customisations made from the UI go into `custom-file'.")
   :ensure t
   :blackout)
 
+(use-package org-tree-slide
+  ;; Simple org outline based presentation mode
+  ;; ref: https://github.com/takaxp/org-tree-slide
+  :ensure t
+  :bind (("<f8>" . 'org-tree-slide-mode)
+         ("S-<f8>" . 'org-tree-slide-skip-done-toggle)
+         :map org-tree-slide-mode-map
+         ("<f9>" . 'org-tree-slide-move-previous-tree)
+         ("<f10>" . 'org-tree-slide-move-next-tree)
+         ("<f11>" . 'org-tree-slide-content))
+  :config
+  (setq org-tree-slide-skip-outline-level 4))
+
 (provide 'init)
 ;;; init.el ends here
