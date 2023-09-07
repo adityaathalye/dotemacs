@@ -170,6 +170,25 @@ Usually customisations made from the UI go into `custom-file'.")
 (unless package-archive-contents
   (package-refresh-contents))
 
+;; PATH Setting
+;;
+;; Make the environment variables inside Emacs look the same as my shell
+;; ref: https://github.com/purcell/exec-path-from-shell
+;; e.g. LSP server installation requires nvm path that is not available
+;; in PATH if we start Emacs from the GUI.
+(unless (package-installed-p 'exec-path-from-shell)
+  (package-install 'exec-path-from-shell))
+(require 'exec-path-from-shell)
+;; Set list of vars to look up from shell env. Do so _before_ initialising.
+(dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE"))
+  (add-to-list 'exec-path-from-shell-variables var))
+;; Set $MANPATH, $PATH and exec-path from  shell, when executed in a GUI
+;; frame on OS X and Linux.
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+(when (daemonp)
+  (exec-path-from-shell-initialize))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Use use-package
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
