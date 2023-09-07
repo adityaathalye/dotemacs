@@ -698,22 +698,5 @@ Usually customisations made from the UI go into `custom-file'.")
         )
   :blackout)
 
-(use-package flycheck-joker
-  :after (flycheck clojure-mode)
-  :ensure t
-  :blackout)
-
-(use-package flycheck-clj-kondo
-  ;; cf. https://github.com/clj-kondo/clj-kondo
-  ;;
-  :ensure t
-  :after (flycheck clojure-mode)
-  :config
-  (dolist (checkers '((clj-kondo-clj . clojure-joker)
-                      (clj-kondo-cljs . clojurescript-joker)
-                      (clj-kondo-cljc . clojure-joker)
-                      (clj-kondo-edn . edn-joker))))
-  :blackout)
-
 (provide 'init)
 ;;; init.el ends here
