@@ -678,9 +678,11 @@ Usually customisations made from the UI go into `custom-file'.")
   ;; h/t cider docs and ericdallo/dotfiles/.config/doom/config.el
   (remove-hook 'eldoc-documentation-functions #'cider-eldoc)
   (remove-hook 'completion-at-point-functions #'cider-complete-at-point)
+  :custom
+  (cider-preferred-build-tool 'clj)
   :config
   ;; settings h/t suvratapte/dot-emacs-dot-d
-  (setq cider-repl-pop-to-buffer-on-connect t
+  (setq cider-repl-pop-to-buffer-on-connect nil
         cider-show-error-buffer t
         cider-auto-select-error-buffer t
         cider-repl-history-file (expand-file-name "cider-history"
@@ -695,6 +697,8 @@ Usually customisations made from the UI go into `custom-file'.")
         cider-eldoc-display-for-symbol-at-point nil ; use lsp
         cider-prompt-for-symbol nil ; use lsp
         cider-use-xref nil ; use lsp
+        ;; Maybe customize variables for cider-jack-in
+        ;; https://docs.cider.mx/cider/basics/up_and_running.html
         )
   :blackout)
 
