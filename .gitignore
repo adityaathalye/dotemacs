@@ -25,11 +25,13 @@ tramp
 flycheck_*.el
 # projectiles files
 .projectile
+*.eld
 # directory configuration
 .dir-locals.el
 # custom temporary directories
-savefile/
-# lsp-mode cache for auto-installed lsp servers
+/savefile/
+/transient/
+# lsp-mode server cache, workspace dirs, session files etc.
 /.cache/
-# lsp-mode workspace dirs
 /workspace/
+/.lsp*
