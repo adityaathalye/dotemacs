@@ -714,6 +714,26 @@ Usually customisations made from the UI go into `custom-file'.")
         '(("s"   . "schema.core")
           ("pp" . "clojure.pprint"))))
 
+;; WEB DEVELOPMENT
+
+(use-package web-mode
+  :ensure t
+  :config
+  ;; for config ref: bbatsov/prelude/modules/prelude-web.el
+  ;; e.g. to set web-mode for templating languages,
+  ;;      to define new smartparen pairs etc.
+  (setq web-mode-enable-auto-pairing nil) ; play nice with smartparens
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  :blackout)
+
+(use-package json-mode
+  :ensure t
+  :blackout)
+
+(use-package js2-mode
+  :ensure t
+  :blackout)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Org Mode specials
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
