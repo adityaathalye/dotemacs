@@ -734,6 +734,12 @@ Usually customisations made from the UI go into `custom-file'.")
   :ensure t
   :blackout)
 
+;; DOCUMENTATION FORMATS
+
+(use-package adoc-mode
+  :ensure t
+  :blackout)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Org Mode specials
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
