@@ -358,6 +358,13 @@ Usually customisations made from the UI go into `custom-file'.")
   (ivy-rich-path-style 'abbreviate)
   :config
   (ivy-rich-mode +1)
+  ;; perf. Caching:
+  ;; ref: https://github.com/Yevgnen/ivy-rich#project-performance
+  ;; ref: https://github.com/syl20bnr/spacemacs/issues/10101
+  ;; ivy-rich slows down a lot if many buffers are open
+  ;; `M-x profiler-start' revealed lots of busy work by ivy-rich.
+  ;; This is super annoying, but the workaround is to add a cache.
+  (ivy-rich-project-root-cache-mode +1)
   :blackout)
 
 (use-package ibuffer
