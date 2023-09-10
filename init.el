@@ -125,7 +125,6 @@ Usually customisations made from the UI go into `custom-file'.")
 (menu-bar-mode 0)
 (column-number-mode t)
 (set-fringe-mode '(5 . 13)) ;; describe variable fringe-mode
-(global-display-line-numbers-mode 1) ; always show line numbers
 (global-hl-line-mode +1)
 (global-visual-line-mode +1) ; prefer Visual Line Mode
 ;; (add-hook 'text-mode-hook #'visual-line-mode) ; selectively, instead of global visual line mode
