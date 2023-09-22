@@ -719,6 +719,11 @@ Usually customisations made from the UI go into `custom-file'.")
         '(("s"   . "schema.core")
           ("pp" . "clojure.pprint"))))
 
+(use-package clj-deps-new
+  ;; Emacs interface to deps-new (like lein new for Leiningen, or clj-new for Boot)
+  ;; ref: https://github.com/jpe90/emacs-clj-deps-new
+  :blackout)
+
 ;; WEB DEVELOPMENT
 
 (use-package web-mode

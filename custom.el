@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(zeal-at-point org-tree-slide ox-asciidoc ob-kotlin
+   '(zeal-at-point clj-deps-new org-tree-slide ox-asciidoc ob-kotlin
      ob-clojurescript ob-sql-mode ob-http adoc-mode js2-mode json-mode
      web-mode clj-refactor cider clojure-mode lsp-ivy lsp-ui lsp-mode
      flycheck yasnippet-snippets yasnippet projectile magit smartparens
