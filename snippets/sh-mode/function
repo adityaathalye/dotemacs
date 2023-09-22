@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: function-sh
+# key: fn
+# --
+${1:name}() {
+    $0
+}

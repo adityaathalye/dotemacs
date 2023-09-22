@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: ob-src-output-stdout
+# key: <so
+# --
+#+BEGIN_SRC $1 :results output
+  $0
+#+END_SRC
