@@ -573,6 +573,11 @@ Usually customisations made from the UI go into `custom-file'.")
   :config (global-flycheck-mode +1)
   :blackout)
 
+(use-package zeal-at-point
+  ;; ref: https://github.com/jinzhu/zeal-at-point
+  :bind (:map global-map
+              ("\C-c z" . 'zeal-at-point)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Programming languages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
