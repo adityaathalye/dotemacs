@@ -349,7 +349,11 @@ Usually customisations made from the UI go into `custom-file'.")
         ivy-count-format "%d/%d: " ; per the docs
         ;; don't start ivy prompts with '^' regex match,
         ;; because we want fuzzier matching by default
-        ivy-initial-inputs-alist nil)
+        ivy-initial-inputs-alist nil
+        ;; fix annoying problem of ivy not letting us rename file
+        ;; that has partial completion
+        ;; https://www.reddit.com/r/emacs/comments/e02lup/ivy_swiper_doesnt_let_me_rename_or_save_a_file/
+        ivy-use-selectable-prompt t)
   :blackout)
 
 (use-package ivy-rich ; h/t suvratapte/dot-emacs-dot-d
