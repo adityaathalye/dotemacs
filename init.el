@@ -476,6 +476,8 @@ Usually customisations made from the UI go into `custom-file'.")
 ;; Multiple cursors
 (use-package multiple-cursors
   :config
+  (setq mc/list-file (expand-file-name ".mc-lists.el"
+                                       adi/dotemacs-savefile-dir))
   ;; Idea taken from "Emacs: Define Key Sequence"
   ;; ref: http://ergoemacs.org/emacs/emacs_keybinding_power_of_keys_sequence.html
   ;; define prefix keymap for multiple cursors
