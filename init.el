@@ -50,6 +50,14 @@ Usually customisations made from the UI go into `custom-file'.")
 (unless (file-exists-p adi/dotemacs-savefile-dir)
   (make-directory adi/dotemacs-savefile-dir))
 
+(defvar adi/dotemacs-backup-files-dir (file-name-as-directory
+                                     (expand-file-name "autosaves"
+                                                       adi/dotemacs-savefile-dir))
+  "Store backup file copies Emacs makes when editing files,
+and for auto-saves we can restore from.")
+(unless (file-exists-p adi/dotemacs-backup-files-dir)
+  (make-directory adi/dotemacs-backup-files-dir))
+
 (defvar adi/dotemacs-cache-dir (file-name-as-directory
                                 (expand-file-name ".cache" adi/dotemacs-dir))
   "Store things like lsp servers that lsp-mode can auto-download.")
@@ -83,6 +91,16 @@ Usually customisations made from the UI go into `custom-file'.")
  load-prefer-newer t
  ;; LSP-mode performance tweaks
  read-process-output-max (* 1024 1024) ; 1mb
+
+ ;; FILE BACKUP RESTORE
+ ;; cf. https://www.emacswiki.org/emacs/BackupDirectory
+ ;; and https://www.emacswiki.org/emacs/BackupFiles
+ ;; and https://www.emacswiki.org/emacs/AutoSave
+ ;; To also configure local backups for tramp,
+ ;; use `tramp-backup-directory-alist'
+ backup-by-copying t ; don't clobber symlinks
+ backup-directory-alist ; put backup files here, e.g. `file~' and `#file#' copies
+ `(("." . ,adi/dotemacs-backup-files-dir))
 
  ;; INTERACTIONS
  inhibit-startup-message t
