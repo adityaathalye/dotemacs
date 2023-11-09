@@ -748,6 +748,17 @@ and for auto-saves we can restore from.")
   ;; ref: https://github.com/jpe90/emacs-clj-deps-new
   :blackout)
 
+;; DATABASES
+
+(use-package sqlformat
+  ;; https://github.com/purcell/sqlformat
+  ;; with sqlfluff (pip installed for user) https://github.com/sqlfluff/sqlfluff
+  :hook (sql-mode . sqlformat-on-save-mode)
+  :config
+  (setq sqlformat-command 'sqlfluff)
+  (setq sqlformat-args '("--dialect" "postgres"))
+  :blackout)
+
 ;; WEB DEVELOPMENT
 
 (use-package web-mode
