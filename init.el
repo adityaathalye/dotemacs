@@ -420,6 +420,7 @@ and for auto-saves we can restore from.")
   (setq key-chord-safety-interval-backward 0.5) ; default 0.1 is too close to key delays
   (setq key-chord-safety-interval-forward 0) ; default 0.35 causes laggy experience
 
+  (key-chord-unset-global "lj") ; we often want to type clj
   (key-chord-define-global "jj" 'avy-goto-word-1)
   (key-chord-define-global "jl" 'avy-goto-line)
   (key-chord-define-global "jk" 'avy-goto-char)
