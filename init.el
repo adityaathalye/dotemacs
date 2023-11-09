@@ -610,7 +610,7 @@ and for auto-saves we can restore from.")
   ;; ref: https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
   :init
   (setq lsp-keymap-prefix "C-c C-l")
-  :hook ((clojure-mode clojurescript-mode clojurec-mode) . lsp-deferred)
+  :hook ((clojure-mode clojurescript-mode clojurec-mode sh-mode) . lsp-deferred)
   :hook (lsp-mode . lsp-enable-which-key-integration)
   :custom
   ;; LSP "workspace" dirs:
