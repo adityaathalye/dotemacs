@@ -514,6 +514,42 @@ and for auto-saves we can restore from.")
 (use-package wgrep ; editable grep buffers FTW!
   :blackout)
 
+(use-package separedit
+  ;; Edit comment or string/docstring or code block inside them in
+  ;; separate buffer with your favorite mode. h/t Ag Ibragimov via
+  ;; Clojurians Slack. Ag notes separedit uses indirect buffers to
+  ;; work its magic. cf: https://github.com/twlz0ne/separedit.el
+  ;; --
+  ;; Ag: I use separadit to edit multiline text like:
+  ;;   (str "foo"
+  ;;        "bar"
+  ;;        "zap"
+  ;;        "zop")
+  ;; it will let me edit the whole thing in a separate buffer, showing
+  ;; only the string content and when I'm done, it will put the
+  ;; modified text back into (str) block. It feels like pure magic.
+  ;; --
+  ;; I used it as an example use of indirect buffers.
+  ;; Try this.
+  ;; Open a namespace file (or any buffer, really)
+  ;; - Clone indirect buffer M-x clone-indirect-buffer
+  ;; - You'd see another cloned buffer
+  ;; - Now, you can use narrow-to-defun, narrow-to-region commands
+  ;;   in one buffer without affecting the other.
+  ;; - Meanwhile editing text would equally be synchronized in both of them.
+  :bind
+  (:map global-map
+        ;; "C-u C-c '" to edit with manually selected major mode
+        ("C-c '" . #'separedit))
+  :config
+  ;; Feature options
+  (setq separedit-preserve-string-indentation t
+        separedit-continue-fill-column t
+        separedit-write-file-when-execute-save t
+        separedit-remove-trailing-spaces-in-comment t)
+
+  :ensure t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Lispy editing support
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
