@@ -2,6 +2,6 @@
 # name: ob-src-output-stdout
 # key: <so
 # --
-#+BEGIN_SRC $1 :results output
-  $0
+#+BEGIN_SRC ${1:lang-name} :results output
+$0
 #+END_SRC

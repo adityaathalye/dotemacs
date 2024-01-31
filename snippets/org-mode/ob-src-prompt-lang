@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: ob-src-prompt-lang
+# key: <s
+# --
+#+BEGIN_SRC ${1:lang-name}
+$0
+#+END_SRC
