@@ -669,14 +669,26 @@ and for auto-saves we can restore from.")
   :after lsp-mode
   :commands lsp-ivy-workspace-symbol)
 
-;; treemacs is cool, but I'm not sure I want it yet.
+;; treemacs is pretty useful for polylith-like multi-projects
 ;; cf: https://github.com/emacs-lsp/lsp-treemacs
 ;; and https://github.com/Alexander-Miller/treemacs
-;; (use-package lsp-treemacs
-;;   :after lsp-mode
-;;   :commands lsp-treemacs-errors-list
-;;   :config
-;;   (setq treemacs-space-between-root-nodes nil))
+(use-package treemacs
+  :bind
+  (:map global-map
+        ("M-0" . treemacs-select-window))
+  :config
+  (setq treemacs-file-event-delay 500 ; default is 2000
+        treemacs-file-follow-delay 0.1 ; default is 0.2
+        treemacs-display-in-side-window t)
+  :blackout)
+
+(use-package lsp-treemacs
+  :after lsp-mode
+  :commands lsp-treemacs-errors-list
+  :config
+  (setq treemacs-space-between-root-nodes nil
+        lsp-treemacs-sync-mode +1)
+  :blackout)
 
 ;; dap-mode, optionally to use LANGUAGE-specific debuggers
 ;; cf. https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
