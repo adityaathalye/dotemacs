@@ -82,9 +82,18 @@ and for auto-saves we can restore from.")
 
 (setq
  ;; PERFORMANCE
+
  ;; gc ~100MB for better overall performance. ~50-100MB is recommended
  ;; these days over the long-obsolete default of ~8MB.
+ ;;   TODO: evaluate the Garbage Collection Magic Hack (GCMH) to
+ ;;   - Enforce a sneaky Garbage Collection strategy to minimize GC
+ ;;     interference with user activity.
+ ;;   - If this is done at the beginning of your .emacs start-up time
+ ;;     should also benefit from it.
+ ;;   cf. https://gitlab.com/koral/gcmh, https://akrl.sdf.org/#orgc9536b4,
+ ;;   via HN: https://news.ycombinator.com/item?id=39190110
  gc-cons-threshold (* 100 1024 1024)
+
  ;; Large files freeze Emacs. Warn for files over ~100MB.
  large-file-warning-threshold (* 100 1024 1024)
  ;; Always load newest byte code. cf. bbatsov/prelude
