@@ -559,6 +559,15 @@ and for auto-saves we can restore from.")
 
   :ensure t)
 
+(use-package crux
+  ;; cf. https://github.com/bbatsov/crux
+  :bind
+  (:map global-map
+        ("C-M-z" . crux-indent-defun) ; indent defun at point
+        ("C-c r" . crux-rename-file-and-buffer)
+        ("C-c D" . crux-delete-file-and-buffer))
+  :blackout)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Lispy editing support
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
