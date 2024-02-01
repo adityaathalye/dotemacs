@@ -607,6 +607,27 @@ and for auto-saves we can restore from.")
   :blackout)
 
 (use-package projectile
+  :init
+  (projectile-mode +1)
+  :config
+  (setq projectile-indexing-method 'alien ; default is 'alien
+        ;; Enable caching unconditionally for all indexing modes
+        projectile-enable-caching t
+        ;; cf. https://docs.projectile.mx/projectile/configuration.html#caching
+        ;; To manually invalidate cache:
+        ;; - 'C-u C-c p f', prior to prompting for a file to jump to
+        ;; - M-x projectile-purge-file-from-cache
+        ;; - M-x projectile-purge-dir-from-cache
+
+        ;; Set search paths string explicitly to re-index all known projects.
+        ;; Optionally use cons cell to declare recursive search depth
+        ;; '(("~/src" . 3) ("~/work/" . 4))
+        projectile-project-search-path nil
+        ;; make C-c p t also create a test file when missing
+        projectile-create-missing-test-files t)
+  :bind
+  (:map projectile-mode-map
+        ("C-c p" . projectile-command-map))
   :blackout)
 
 (use-package yasnippet
