@@ -616,6 +616,9 @@ and for auto-saves we can restore from.")
   :blackout)
 
 (use-package projectile
+  :custom
+  (projectile-cache-file (expand-file-name "projectile.cache"
+                                           adi/dotemacs-cache-dir))
   :init
   (projectile-mode +1)
   :config
