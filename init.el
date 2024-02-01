@@ -741,10 +741,23 @@ and for auto-saves we can restore from.")
 (use-package treemacs
   :bind
   (:map global-map
-        ("M-0" . treemacs-select-window))
+        ("M-0" . treemacs-select-window)
+        ("C-c C-t 1"   . treemacs-delete-other-windows)
+        ("C-c C-t t"   . treemacs)
+        ("C-c C-t d"   . treemacs-select-directory)
+        ("C-c C-t B"   . treemacs-bookmark)
+        ("C-c C-t C-t" . treemacs-find-file)
+        ("C-c C-t M-t" . treemacs-find-tag))
   :config
   (setq treemacs-file-event-delay 500 ; default is 2000
         treemacs-file-follow-delay 0.1 ; default is 0.2
+        ;; Make treemacs automatically switch to the project for the
+        ;; current buffer. Without this, one has to remember which project
+        ;; belongs to which workspace.
+        treemacs-follow-mode t
+        treemacs-find-workspace-method 'find-for-file-or-manually-select
+        treemacs-project-follow-mode t
+        treemacs-project-follow-cleanup t ; expand only current project
         treemacs-display-in-side-window t)
   :blackout)
 
