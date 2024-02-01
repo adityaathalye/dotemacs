@@ -769,6 +769,9 @@ and for auto-saves we can restore from.")
         lsp-treemacs-sync-mode +1)
   :blackout)
 
+(use-package treemacs-projectile
+  :after (treemacs projectile))
+
 ;; dap-mode, optionally to use LANGUAGE-specific debuggers
 ;; cf. https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
 ;; (use-package dap-mode)
