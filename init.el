@@ -32,6 +32,10 @@
 ;; the repo without potentially overwriting transient state files of the
 ;; daily driver .emacs.d.
 
+;; TODO: Evaluate the `no-littering' package.
+;; It aims to "Help keeping ~/.config/emacs clean.".
+;; cf. https://github.com/emacscollective/no-littering
+
 (defvar adi/dotemacs-dir
   (file-name-directory (or load-file-name (buffer-file-name)))
   "The dotemacs' root.  Normally it should be ~/.emacs.d.")
@@ -181,7 +185,22 @@ and for auto-saves we can restore from.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Package management
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; TODO: use `straight-use-package' for great good.
+;; cf. https://github.com/radian-software/straight.el?tab=readme-ov-file#integration-with-use-package
+;;
+;; To use use-package, first install it with straight.el:
+;;
+;;   (straight-use-package 'use-package)
+;;
+;; Now use-package will use straight.el to automatically install missing packages if you provide :straight t:
+;;
+;;   (use-package el-patch
+;;     :straight t)
+;;
+;; You can still provide a custom recipe for the package... etc. etc.
+;;
 
 (require 'package)
 ;; Explicitly set the exact package archives list
