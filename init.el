@@ -791,7 +791,12 @@ and for auto-saves we can restore from.")
         treemacs-find-workspace-method 'find-for-file-or-manually-select
         treemacs-project-follow-mode t
         treemacs-project-follow-cleanup t ; expand only current project
-        treemacs-display-in-side-window t)
+        treemacs-display-in-side-window t
+        ;; treemacs--process-file-events produces errors in case of
+        ;; transient files, even gitignored ones. Hiding gitignored files
+        ;; appears to work around the timer error.
+        ;; https://github.com/Alexander-Miller/treemacs/issues/749#issuecomment-1962363871
+        treemacs-hide-gitignored-files-mode t)
   :blackout)
 
 (use-package lsp-treemacs
