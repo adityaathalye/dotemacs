@@ -35,3 +35,5 @@ flycheck_*.el
 /.cache/
 /workspace/
 /.lsp*
+# custom config that should remain private
+private-custom.el

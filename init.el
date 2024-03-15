@@ -48,6 +48,12 @@ Usually customisations made from the UI go into `custom-file'.")
   (make-empty-file adi/dotemacs-custom-file))
 (load-file custom-file) ; load *now*, instead of unpredictable load sequence
 
+(defvar adi/dotemacs-custom-file-private (expand-file-name "private-custom.el" adi/dotemacs-dir)
+  "A file for private customisations. TODO: create a private package to load out-of-band.")
+(unless (file-exists-p adi/dotemacs-custom-file-private)
+  (make-empty-file adi/dotemacs-custom-file-private))
+(load-file adi/dotemacs-custom-file-private) ; load *now*, instead of unpredictable load sequence
+
 (defvar adi/dotemacs-savefile-dir (file-name-as-directory
                                (expand-file-name "savefile" adi/dotemacs-dir))
   "This folder stores all the automatically generated save/history-files.")
