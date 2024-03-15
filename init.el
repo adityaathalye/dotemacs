@@ -82,7 +82,9 @@ and for auto-saves we can restore from.")
 ;; NOTE: Use `C-q TAB` to insert literal tabs.
 (setq-default indent-tabs-mode nil
               tab-width 8
-              fill-column 80)
+              ;; to hard wrap, use fill-paragraph
+              fill-column 70
+              global-display-fill-column-indicator-mode t)
 
 (setq
  ;; PERFORMANCE
