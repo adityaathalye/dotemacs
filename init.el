@@ -150,6 +150,14 @@ and for auto-saves we can restore from.")
 ;; ref: http://ergoemacs.org/emacs/emacs_encoding_decoding_faq.html
 (set-language-environment "UTF-8")
 
+;; CREATURE COMFORTS
+
+;; Tracking world time with Emacs
+;; https://emacsredux.com/blog/2024/03/11/tracking-world-time-with-emacs/
+;; Zone format: "Country/Region" "Label"
+(setq world-clock-list adi/world-clock-list
+      world-clock-time-format "%a %d %b %R %Z")
+
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; VISUAL AESTHETICS
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
