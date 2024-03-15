@@ -928,6 +928,34 @@ and for auto-saves we can restore from.")
 (use-package adoc-mode
   :blackout)
 
+;; INFORMATION OVERDOSING
+
+(use-package elfeed
+  ;; https://github.com/skeeto/elfeed
+  ;; To search feeds, open elfeed search view, hit `s' and type a query
+  ;; in the minibuffer. For example:
+  ;;
+  ;;   @6-months-ago +unread
+  ;; Only show unread entries of the last six months. This is the default filter.
+  ;;
+  ;;   linu[xs] @1-year-old
+  ;; Only show entries about Linux or Linus from the last year.
+  ;;
+  ;;   -unread +youtube #10
+  ;; Only show the most recent 10 previously-read entries tagged as youtube.
+  ;;
+  ;;   +unread !x?emacs
+  ;; Only show unread entries not having emacs or xemacs in the title or link.
+  ;;
+  ;;  +emacs =http://example.org/feed/
+  ;; Only show entries tagged as emacs from a specific feed.
+  ;;
+  :bind
+  (:map global-map
+        ("C-x w" . elfeed))
+  :config
+  (setq elfeed-feeds adi/elfeed-list))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Org Mode specials
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
