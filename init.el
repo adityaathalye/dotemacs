@@ -895,6 +895,23 @@ and for auto-saves we can restore from.")
   ;; ref: https://github.com/jpe90/emacs-clj-deps-new
   :blackout)
 
+;; Javascript / Typescript development
+;; Use the `ts-ls' server recommended in the official lsp-mode documentation
+;; cf. https://emacs-lsp.github.io/lsp-mode/page/lsp-typescript/
+(use-package typescript-mode
+  ;; NOTE: development has halted for this mode, because of how
+  ;; complex TS and TSX parsing has become. They recommend using treesitter
+  ;; powered `typescript-ts-mode' that is built into Emacs 29.
+  ;; h/t systemcrafters
+  ;; https://systemcrafters.net/emacs-from-scratch/build-your-own-ide-with-lsp-mode/#typescript
+  ;; ALTERNATIVE:
+  ;; If this doesn't work well, install tree-sitter and ts/tsx support
+  ;; https://vxlabs.com/2022/06/12/typescript-development-with-emacs-tree-sitter-and-lsp-in-2022/
+  :mode "\\.ts\\'"
+  :hook (typescript-mode . lsp-deferred)
+  :config
+  (setq typescript-indent-level 2))
+
 ;; DATABASES
 
 (use-package sqlformat
