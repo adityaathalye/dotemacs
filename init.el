@@ -776,7 +776,8 @@ and for auto-saves we can restore from.")
   (setq lsp-ui-sideline-enable t
         lsp-ui-doc-enable t
         lsp-ui-peek-enable t
-        lsp-ui-peek-always-show t))
+        lsp-ui-peek-always-show t
+        lsp-ui-imenu-auto-refresh 'after-save))
 
 (use-package lsp-ivy
   :after lsp-mode
