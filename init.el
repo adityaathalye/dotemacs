@@ -839,7 +839,7 @@ and for auto-saves we can restore from.")
          (clojure-mode . yas-minor-mode))
 
   :config
-  (setq clojure-indent-style 'align-arguments)
+  (setq clojure-indent-style 'always-align)
   :blackout "Clj")
 
 (use-package cider
