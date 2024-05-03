@@ -274,6 +274,37 @@ and for auto-saves we can restore from.")
 
 ;; Packages useful to configure packages
 
+(use-package gnu-elpa-keyring-update
+  ;; To keep package verification signatures up to date.
+  ;; ref: https://elpa.gnu.org/packages/gnu-elpa-keyring-update.html
+  ;;
+  ;; If our keys are already too old, causing signature verification
+  ;; errors when installing packages, then in order to install this
+  ;; package we have to temporarily disable signature verification
+  ;; (see variable `package-check-signature') :-(
+  ;;
+  ;; If keys have expired, we get an error like this:
+  ;;
+  ;;   Failed to verify signature archive-contents.sig:
+  ;;   No public key for 645357D2883A0966 created at 2024-05-03T02:35:03+0530 using EDDSA
+  ;;   Command output:
+  ;;   gpg: Signature made Friday 03 May 2024 02:35:03 AM IST
+  ;;   gpg:                using EDDSA key 0327BE68D64D9A1A66859F15645357D2883A0966
+  ;;   gpg: Can't check signature: No public key
+  ;;
+  ;; To fix it:
+  ;; ref: https://emacs.stackexchange.com/a/53142
+  ;;
+  ;; - Unset package-check-signature
+  ;; (setq package-check-signature--old package-check-signature
+  ;;       package-check-signature nil)
+  ;;
+  ;; - Install this check signature package
+  ;;
+  ;; - Set back package-check-signature to former value.
+  ;; (setq package-check-signature package-check-signature--old)
+  )
+
 ;; radian-software/blackout to tune major/minor mode names
 ;; in modeline. It unifies functionality of the mutually
 ;; confusing modeline lighters delight, diminish, and dim.
