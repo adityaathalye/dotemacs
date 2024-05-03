@@ -777,7 +777,11 @@ and for auto-saves we can restore from.")
         lsp-ui-doc-enable t
         lsp-ui-peek-enable t
         lsp-ui-peek-always-show t
-        lsp-ui-imenu-auto-refresh 'after-save))
+        lsp-ui-imenu-auto-refresh 'after-save
+        ;; fix width to prevent golden ratio mode from
+        ;; re-balancing the imenu window
+        lsp-ui-imenu-window-fix-width t
+        lsp-ui-imenu-window-width 40))
 
 (use-package lsp-ivy
   :after lsp-mode
