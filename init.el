@@ -747,11 +747,6 @@ and for auto-saves we can restore from.")
   :bind (:map global-map
               ("\C-c z" . 'zeal-at-point)))
 
-(use-package aggressive-indent-mode
-  ;; https://github.com/Malabarba/aggressive-indent-mode
-  ;; cf. additional packages recommended by clojure-mode
-  )
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Programming languages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -876,8 +871,7 @@ and for auto-saves we can restore from.")
   ;; Hook into subword-mode to work with CamelCase tokens like Java classes
   ;; h/t suvratapte/dot-emacs-dot-d
   :hook ((clojure-mode . subword-mode)
-         (clojure-mode . yas-minor-mode)
-         (clojure-mode . aggressive-indent-mode))
+         (clojure-mode . yas-minor-mode))
 
   :config
   (setq clojure-indent-style 'always-align)
