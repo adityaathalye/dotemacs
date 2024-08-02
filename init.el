@@ -369,6 +369,19 @@ and for auto-saves we can restore from.")
   (setq desktop-restore-eager 1)
   :config
   (add-to-list 'desktop-path adi/dotemacs-savefile-dir)
+  ;; Prevent LSP mode from being restored. If many different
+  ;; projects are open, then restoring desktop fires up all the
+  ;; associated language servers which hog memory.
+  (dolist (mod '(lsp-mode
+                 lsp-completion-mode
+                 lsp-lens-mode
+                 lsp-modeline-code-actions-mode
+                 lsp-modeline-diagnostics-mode
+                 lsp-modeline-workspace-status-mode
+                 lsp-diagnostics-mode))
+    (add-to-list 'desktop-minor-mode-table
+                 (list mod nil)))
+  ;; Auto save every 30 seconds
   (setq desktop-dirname adi/dotemacs-savefile-dir
         desktop-auto-save-timeout 30)
 
