@@ -757,6 +757,7 @@ and for auto-saves we can restore from.")
   (setq lsp-keymap-prefix "C-c C-l")
   :hook ((clojure-mode clojurescript-mode clojurec-mode sh-mode) . lsp-deferred)
   :hook (lsp-mode . lsp-enable-which-key-integration)
+  :hook (before-save . lsp-format-buffer)
   :custom
   ;; LSP "workspace" dirs:
   ;; nb. "workspace" seems to be a confusing concept. It is a VSCode concept
