@@ -483,10 +483,17 @@ and for auto-saves we can restore from.")
 
 (use-package which-key
   :config (which-key-mode t)
-  (setq which-key-idle-delay 0.5)
-  ;; Sort based on the key description ignoring case (default
-  ;; is 'which-key-key-order).
-  (setq which-key-sort-order 'which-key-description-order)
+  (setq
+   ;; Use C-h to manually activate which-key. This way, we can use
+   ;; which-key only when needed.
+   ;;
+   ;; cf. https://github.com/justbur/emacs-which-key?tab=readme-ov-file#manual-activation
+   which-key-show-early-on-C-h t
+   which-key-idle-delay 10000
+   which-key-idle-secondary-delay 0.01
+   ;; Sort based on the key description ignoring case (default
+   ;; is 'which-key-key-order).
+   which-key-sort-order 'which-key-description-order)
   :blackout)
 
 (use-package ace-window
