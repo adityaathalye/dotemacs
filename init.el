@@ -770,7 +770,7 @@ and for auto-saves we can restore from.")
   (setq lsp-keymap-prefix "C-c C-l")
   :hook ((clojure-mode clojurescript-mode clojurec-mode sh-mode) . lsp-deferred)
   :hook (lsp-mode . lsp-enable-which-key-integration)
-  :hook (before-save . lsp-format-buffer)
+  ;; :hook (before-save . lsp-format-buffer)
   :custom
   ;; LSP "workspace" dirs:
   ;; nb. "workspace" seems to be a confusing concept. It is a VSCode concept
@@ -795,7 +795,12 @@ and for auto-saves we can restore from.")
         ;; IDK why semgrep is on by default, docs are thin on configuring it
         ;; I don't want the error 'Command "semgrep lsp" is not present on the path.'
         ;; because I don't want to "pip install semgrep --user".
-        lsp-semgrep-server-command nil)
+        lsp-semgrep-server-command nil
+        ;; Disable LSP rangeFormatting because clojure-lsp consumes
+        ;; a lot of cpu for reindent, especially on large files
+        ;; as seen in the malli.core.cljc namespace.
+        ;; ref: https://github.com/clojure-lsp/clojure-lsp/issues/1758
+        lsp-enable-indentation nil)
   ;; LANGUAGE SPECIFIC SETTINGS
   ;; clojure-lsp: cf. https://clojure-lsp.io/clients/#emacs
   (add-to-list 'lsp-language-id-configuration
