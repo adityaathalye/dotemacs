@@ -794,20 +794,12 @@ and for auto-saves we can restore from.")
                                 (expand-file-name "lsp" adi/dotemacs-cache-dir))
         ;; Perf. tweaks. Ref: https://emacs-lsp.github.io/lsp-mode/page/performance/
         lsp-idle-delay 0.500 ; bump higher if lsp-mode gets sluggish
-        lsp-log-io nil
-        ; lsp-enable-indentation nil ; set 'nil' to use cider indentation instead of lsp
-        ; lsp-enable-completion-at-point nil; set 'nil' to use cider completion instead of lsp
-
+        lsp-log-io nil ; t to get JSON logs for debugging
         ;; No semgrep. https://emacs-lsp.github.io/lsp-mode/page/lsp-semgrep/
         ;; IDK why semgrep is on by default, docs are thin on configuring it
         ;; I don't want the error 'Command "semgrep lsp" is not present on the path.'
         ;; because I don't want to "pip install semgrep --user".
-        lsp-semgrep-server-command nil
-        ;; Disable LSP rangeFormatting because clojure-lsp consumes
-        ;; a lot of cpu for reindent, especially on large files
-        ;; as seen in the malli.core.cljc namespace.
-        ;; ref: https://github.com/clojure-lsp/clojure-lsp/issues/1758
-        lsp-enable-indentation nil)
+        lsp-semgrep-server-command nil)
   ;; LANGUAGE SPECIFIC SETTINGS
   ;; clojure-lsp: cf. https://clojure-lsp.io/clients/#emacs
   (add-to-list 'lsp-language-id-configuration
@@ -935,6 +927,13 @@ and for auto-saves we can restore from.")
         cider-eldoc-display-for-symbol-at-point nil ; use lsp
         cider-prompt-for-symbol nil ; use lsp
         cider-use-xref nil ; use lsp
+        ;; Disable LSP rangeFormatting because clojure-lsp consumes
+        ;; a lot of cpu for reindent, especially on large files
+        ;; as seen in the malli.core.cljc namespace.
+        ;; ref: https://github.com/clojure-lsp/clojure-lsp/issues/1758
+        ;; and https://github.com/clojure-lsp/clojure-lsp/pull/795
+        lsp-enable-indentation nil ; set 'nil' to use cider indentation instead of lsp
+        ;; lsp-enable-completion-at-point nil; set 'nil' to use cider completion instead of lsp
         ;; Maybe customize variables for cider-jack-in
         ;; https://docs.cider.mx/cider/basics/up_and_running.html
         )
