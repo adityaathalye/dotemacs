@@ -226,6 +226,11 @@ and for auto-saves we can restore from.")
 ;; Set package download directory relative to the adi/dotemacs-dir
 (setq package-user-dir (file-name-as-directory
                         (expand-file-name "elpa" adi/dotemacs-dir)))
+;; AOT-compilation with GccEmacs
+;; https://www.emacswiki.org/emacs/GccEmacs
+;; TODO: How to set this conditionally only when we know we have GccEmacs?
+(when (version<= "29.4" emacs-version)
+  (setq package-native-compile t))
 
 (package-initialize)
 (unless package-archive-contents
