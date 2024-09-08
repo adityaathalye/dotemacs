@@ -776,6 +776,9 @@ and for auto-saves we can restore from.")
 ;;; Programming languages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(use-package eglot
+  :disabled t)
+
 (use-package lsp-mode
   ;; ref: https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
   :init
