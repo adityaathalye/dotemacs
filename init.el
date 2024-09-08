@@ -811,7 +811,13 @@ and for auto-saves we can restore from.")
   ;; LANGUAGE SPECIFIC SETTINGS
   ;; clojure-lsp: cf. https://clojure-lsp.io/clients/#emacs
   (add-to-list 'lsp-language-id-configuration
-                `(clojurex-mode . "clojure"))
+               `(clojurex-mode . "clojure"))
+
+  ;; Fix "image-type: Invalid image type ‘gif’" on invoking
+  ;; lsp-mode. Apparently some issue with treemacs See:
+  ;; Fix: https://github.com/Alexander-Miller/treemacs/issues/1017#issuecomment-1515602288
+  ;; Via: https://github.com/emacs-lsp/lsp-mode/issues/4054
+  (add-to-list 'image-types 'gif)
   :commands (lsp lsp-deferred))
 
 (use-package lsp-ui
