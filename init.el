@@ -388,6 +388,9 @@ and for auto-saves we can restore from.")
                  (list mod nil)))
   ;; Auto save every 30 seconds
   (setq desktop-dirname adi/dotemacs-savefile-dir
+        ;; Load if locking Emacs process is missing locally.
+        ;; WARNING: don't use check-pid if remote Emacs.
+        desktop-load-locked-desktop 'check-pid
         desktop-auto-save-timeout 30)
 
   (defun adi/desktop-read-after-emacs-startup ()
