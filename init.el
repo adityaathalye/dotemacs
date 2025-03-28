@@ -913,7 +913,6 @@ and for auto-saves we can restore from.")
   ;; h/t suvratapte/dot-emacs-dot-d
   :hook ((clojure-mode . subword-mode)
          (clojure-mode . yas-minor-mode))
-
   :config
   (setq clojure-indent-style 'always-align)
   :blackout "Clj")
@@ -998,6 +997,9 @@ and for auto-saves we can restore from.")
 
 ;; DATABASES
 
+(use-package emacsql
+  :ensure t)
+
 (use-package sqlformat
   ;; https://github.com/purcell/sqlformat
   ;; with sqlfluff (pip installed for user) https://github.com/sqlfluff/sqlfluff
@@ -1028,6 +1030,17 @@ and for auto-saves we can restore from.")
 
 (use-package adoc-mode
   :blackout)
+
+;; CONFIGURATION FORMATS
+
+(use-package yaml
+  :blackout)
+
+(use-package yaml-mode)
+
+(use-package yaml-pro
+  ;; https://github.com/zkry/yaml-pro
+  :hook ((yaml-mode-hook . yaml-pro-ts-mode)))
 
 ;; INFORMATION OVERDOSING
 
