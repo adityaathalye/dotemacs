@@ -779,7 +779,12 @@ and for auto-saves we can restore from.")
 (use-package zeal-at-point
   ;; ref: https://github.com/jinzhu/zeal-at-point
   :bind (:map global-map
-              ("\C-c z" . 'zeal-at-point)))
+              ("\C-c z" . 'zeal-at-point))
+  :config
+  (dolist (mapping '((sh-mode . "bash")
+                     (sql-mode . ("sqlite" "psql"))))
+    (add-to-list 'zeal-at-point-mode-alist
+                 mapping)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Programming languages
