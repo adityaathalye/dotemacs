@@ -37,3 +37,5 @@ flycheck_*.el
 /.lsp*
 # custom config that should remain private
 private-custom.el
+# don't track custom.el either
+custom.el
