@@ -560,6 +560,12 @@ and for auto-saves we can restore from.")
   ;; https://github.com/daichirata/emacs-rotate
   :blackout)
 
+(use-package centered-window
+  ;; https://github.com/anler/centered-window-mode
+  :config
+  (setq cwm-centered-window-width 72)
+  :ensure t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; General text viewing and editing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1088,7 +1094,11 @@ and for auto-saves we can restore from.")
   :ensure nil
   :config
   (setq org-export-coding-system 'utf-8
-        org-babel-clojure-backend 'cider)
+        org-babel-clojure-backend 'cider
+        org-html-preamble-format
+        '(("en"
+           "<h1 class=\"title\">%t</h1>
+            <p class=\"subtitle\">%d BY %a</p>")))
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((shell . t)
@@ -1118,7 +1128,19 @@ and for auto-saves we can restore from.")
          ("<f10>" . 'org-tree-slide-move-next-tree)
          ("<f11>" . 'org-tree-slide-content))
   :config
-  (setq org-tree-slide-skip-outline-level 4))
+  ;; (org-tree-slide-presentation-profile)
+  (setq org-tree-slide-skip-outline-level 4
+        org-tree-slide-heading-emphasis t
+        org-tree-slide-skip-comments 'inherit
+        org-tree-slide-title 1
+        org-tree-slide-breadcrumbs " > "
+        org-tree-slide-indicator '(:next "   Next >>"
+                                   :previous "<< Previous"
+                                   :content "<<  CONTENT  >>")))
+
+(use-package ox-reveal
+  ;; https://github.com/yjwen/org-reveal
+  )
 
 (provide 'init)
 ;;; init.el ends here
