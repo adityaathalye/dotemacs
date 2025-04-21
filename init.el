@@ -983,6 +983,8 @@ and for auto-saves we can restore from.")
   ;; ref: https://github.com/jpe90/emacs-clj-deps-new
   :blackout)
 
+(use-package clay)
+
 ;; Javascript / Typescript development
 ;; Use the `ts-ls' server recommended in the official lsp-mode documentation
 ;; cf. https://emacs-lsp.github.io/lsp-mode/page/lsp-typescript/
