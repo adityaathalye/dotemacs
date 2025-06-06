@@ -181,19 +181,33 @@ and for auto-saves we can restore from.")
 (defun adi/set-frame-font--default ()
   "Interactively set default frame font for day to day work."
   (interactive)
-  (set-frame-font "-PfEd-DejaVu Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+  ;;(set-frame-font "-DAMA-Ubuntu Sans Mono-regular-normal-normal-*-15-*-*-*-m-0-iso10646-1")
+  ;; (set-frame-font "-CTDB-Fira Code-regular-normal-normal-*-15-*-*-*-d-0-iso10646-1")
+  ;; (set-frame-font "-CYRE-Inconsolata-medium-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+  ;; (set-frame-font "-CYRE-Inconsolata-regular-normal-normal-*-18-*-*-*-m-0-iso10646-1")
+  (set-frame-font "-CYRE-Inconsolata-medium-normal-normal-*-18-*-*-*-m-0-iso10646-1")
+  ;; (set-frame-font "-CYRE-Inconsolata-regular-normal-semicondensed-*-16-*-*-*-m-0-iso10646-1")
+  ;; (set-frame-font "-GOOG-Noto Sans Mono-regular-normal-normal-*-16-*-*-*-*-0-iso10646-1")
+  ;; (set-frame-font "-GNU -FreeMono-regular-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+  ;; (set-frame-font "-PfEd-DejaVu Sans Mono-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+  ;; (set-frame-font "-1ASC-Liberation Mono-normal-normal-normal-*-14-*-*-*-m-0-iso10646-1")
   (global-display-line-numbers-mode -1))
 
 (defun adi/set-frame-font--pair-prog ()
   "Interactively set frame font for pair programming."
   (interactive)
-  (set-frame-font "-PfEd-DejaVu Sans Mono-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+  ;; (set-frame-font "-PfEd-DejaVu Sans Mono-normal-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+  (set-frame-font "-CYRE-Inconsolata-medium-normal-semicondensed-*-24-*-*-*-m-0-iso10646-1")
+  ;; (set-frame-font "-GOOG-Noto Sans Mono-regular-normal-normal-*-24-*-*-*-*-0-iso10646-1")
   (global-display-line-numbers-mode 1))
 
 (defun adi/set-frame-font--code-demo ()
   "Interactively set frame font for presentations and demos."
   (interactive)
-  (set-frame-font "-1ASC-Liberation Mono-normal-normal-normal-*-28-*-*-*-m-0-iso10646-1")
+  ;; (set-frame-font "-1ASC-Liberation Mono-normal-normal-normal-*-24-*-*-*-m-0-iso10646-1")
+  ;; (set-frame-font "-CYRE-Inconsolata-regular-normal-normal-*-42-*-*-*-m-0-iso10646-1")
+  ;; (set-frame-font "-CYRE-Inconsolata-medium-normal-semicondensed-*-42-*-*-*-m-0-iso10646-1")
+  (set-frame-font "-CYRE-Inconsolata-medium-normal-normal-*-42-*-*-*-m-0-iso10646-1")
   (global-display-line-numbers-mode -1))
 
 ;; Ensure we always start Emacs with the default font.
