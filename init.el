@@ -178,6 +178,12 @@ and for auto-saves we can restore from.")
 ;; (add-hook 'org-mode-hook  #'visual-line-mode) ; selectively, instead of global visual line mode
 
 ;; Tweak Font sizes globally, and also set line number mode
+(defun adi/set-frame-font--external-monitor ()
+  "Interactively set default frame font for day to day work."
+  (interactive)
+  (set-frame-font "-CYRE-Inconsolata-medium-normal-normal-*-15-*-*-*-m-0-iso10646-1")
+  (global-display-line-numbers-mode -1))
+
 (defun adi/set-frame-font--default ()
   "Interactively set default frame font for day to day work."
   (interactive)
