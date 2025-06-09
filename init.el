@@ -218,6 +218,18 @@ and for auto-saves we can restore from.")
 
 ;; Ensure we always start Emacs with the default font.
 (adi/set-frame-font--default)
+;; TODO: Start Emacs with font set to the /appropriate/ display configuration.
+;; ref: https://emacs.stackexchange.com/questions/22513/is-there-a-way-to-detect-change-of-monitor-in-emacs-elisp
+;;
+;; (frame-monitor-attributes) ;; use this on each display to fetch attributes
+;;
+;; When we are Laptop-only
+;; ((name . "eDP") (geometry 0 0 1680 1050) (workarea 0 32 1680 1018) (mm-size 302 188) (frames #<frame init.el - GNU Emacs at tardis 0x1234567890ab>) (source . "Gdk"))
+;;
+;; When we are Display-connected via DisplayPort
+;; - Emacs could spawn on either the laptop or the external monitor.
+;; - Laptop screen: ((name . "eDP") (geometry 0 0 1440 900) (workarea 0 32 1440 868) (mm-size 302 188) (frames #<frame init.el - GNU Emacs at tardis 0x1234567890ab>) (source . "Gdk"))
+;; - Monitor screen: ((name . "DisplayPort-0") (geometry 1440 0 1920 1080) (workarea 1440 0 1920 1080) (mm-size 527 296) (frames #<frame init.el - GNU Emacs at tardis 0x1234567890ab>) (source . "Gdk"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Package management
