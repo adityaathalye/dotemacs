@@ -1036,6 +1036,10 @@ and for auto-saves we can restore from.")
 
 ;; DATABASES
 
+(use-package sql
+  :config
+  (add-to-list 'auto-mode-alist '("\\.\\(sqlite\\|sqlite3\\)\\'" . sql-sqlite)))
+
 (use-package emacsql
   :ensure t)
 
