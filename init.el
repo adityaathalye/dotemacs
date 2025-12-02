@@ -595,7 +595,7 @@ and for auto-saves we can restore from.")
 (use-package centered-window
   ;; https://github.com/anler/centered-window-mode
   :config
-  (setq cwm-centered-window-width 72)
+  (setq cwm-centered-window-width 90)
   :ensure t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
