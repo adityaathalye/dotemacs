@@ -954,6 +954,9 @@ and for auto-saves we can restore from.")
   (setq clojure-indent-style 'always-align)
   :blackout "Clj")
 
+(use-package clojure-snippets
+  :blackout)
+
 (use-package cider
   ;; Note: Ensure CIDER and lsp-mode play well together, as we use both.
   ;; - LSP for more static-analysis-y services (completions, lookups, errors etc.),
@@ -997,6 +1000,12 @@ and for auto-saves we can restore from.")
         ;; https://docs.cider.mx/cider/basics/up_and_running.html
         )
   :blackout)
+
+(use-package cider-decompile
+  :blackout)
+
+(use-package cider-eval-sexp-fu
+  blackout)
 
 ;; clj-refactor can go where clojure-lsp refactor can't go
 (use-package clj-refactor
