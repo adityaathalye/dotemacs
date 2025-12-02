@@ -745,6 +745,12 @@ and for auto-saves we can restore from.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package magit
+  ;; Make magit-status jump to source in other-window on RET
+  ;; ref: https://emacs.stackexchange.com/a/61721
+  :bind (:map magit-file-section-map
+         ("RET" . magit-diff-visit-file-other-window)
+         :map magit-hunk-section-map
+         ("RET" . magit-diff-visit-file-other-window))
   :blackout)
 
 (use-package projectile
