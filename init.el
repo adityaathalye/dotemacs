@@ -1011,7 +1011,7 @@ and for auto-saves we can restore from.")
   :blackout)
 
 (use-package cider-eval-sexp-fu
-  blackout)
+  :blackout)
 
 ;; clj-refactor can go where clojure-lsp refactor can't go
 (use-package clj-refactor
