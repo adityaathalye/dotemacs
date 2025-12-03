@@ -35,6 +35,12 @@
 ;; TODO: Evaluate the `no-littering' package.
 ;; It aims to "Help keeping ~/.config/emacs clean.".
 ;; cf. https://github.com/emacscollective/no-littering
+;; TODO:
+;; Figure out how to clean up those pesky session.* files
+;; created for X Window sessions, in the base-dir. Emacs
+;; makes these when the window manager quits before Emacs
+;; does. See: emacs-session-save emacs-session-filename
+;; ref: https://emacs.stackexchange.com/q/12679
 
 (defvar adi/dotemacs-dir
   (file-name-directory (or load-file-name (buffer-file-name)))
