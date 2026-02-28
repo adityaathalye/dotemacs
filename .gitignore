@@ -39,3 +39,5 @@ flycheck_*.el
 private-custom.el
 # don't track custom.el either
 custom.el
+.mc-lists.el
+./init-env-secrets.el

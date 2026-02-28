@@ -1219,5 +1219,10 @@ and for auto-saves we can restore from.")
   ;; https://github.com/yjwen/org-reveal
   )
 
+
+;; LLM trials
+
+(load-file (expand-file-name "init-adi-llms.el" adi/dotemacs-dir))
+
 (provide 'init)
 ;;; init.el ends here
