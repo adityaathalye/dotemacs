@@ -1215,6 +1215,13 @@ and for auto-saves we can restore from.")
                                    :previous "<< Previous"
                                    :content "<<  CONTENT  >>")))
 
+;; ;; https://github.com/jlumpe/ox-json/
+;; ;; investigate whether we can use this to help transform orgmode
+;; ;; files to JSON to feed to LLMs
+;; (use-package ox-json
+;;   :ensure t
+;;   :blackout)
+
 (use-package ox-reveal
   ;; https://github.com/yjwen/org-reveal
   )
