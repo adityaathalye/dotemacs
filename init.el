@@ -840,7 +840,8 @@ and for auto-saves we can restore from.")
 (use-package lsp-mode
   ;; ref: https://emacs-lsp.github.io/lsp-mode/page/installation/#use-package
   :init
-  (setq lsp-keymap-prefix "C-c C-l")
+  (setq lsp-keymap-prefix "C-c C-l"
+        lsp-python-ty-clients-server-command '("ty" "server"))
   :hook ((clojure-mode clojurescript-mode clojurec-mode sh-mode) . lsp-deferred)
   :hook (lsp-mode . lsp-enable-which-key-integration)
   ;; :hook (before-save . lsp-format-buffer)
