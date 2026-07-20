@@ -11,7 +11,7 @@
   ;; ref: https://github.com/karthink/gptel?tab=readme-ov-file
   :config
   (setq
-   gptel-model 'qwen3.6:latest
+   gptel-model 'qwen3-coder:30b
    gptel-backend (gptel-make-ollama "Ollama"
                    :host "localhost:11434"
                    :stream t
