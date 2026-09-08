@@ -1107,6 +1107,12 @@ and for auto-saves we can restore from.")
   ;; https://github.com/zkry/yaml-pro
   :hook ((yaml-mode-hook . yaml-pro-ts-mode)))
 
+(use-package hcl-mode
+  ;; https://github.com/hcl-emacs/hcl-mode
+  :custom
+  (hcl-indent-level 2))
+
+
 ;; INFORMATION OVERDOSING
 
 (use-package elfeed
