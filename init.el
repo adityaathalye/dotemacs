@@ -1161,6 +1161,19 @@ and for auto-saves we can restore from.")
 ;; - start emacs
 ;; - profit!
 
+(use-package ob-async
+  ;; Cf. https://github.com/astahlman/ob-async
+  ;;
+  ;; Via this neat blog post!
+  ;; https://cachestocaches.com/2018/6/org-literate-programming/
+  ;;
+  ;; Set `:async t' in source block header.
+  ;;
+  ;; While the code block is running, the RESULTS drawer is populated
+  ;; with a random hash. When the block is finished executing, the
+  ;; hash will be replaced with the actual result.
+  :blackout)
+
 (use-package ob-http
   :blackout)
 
