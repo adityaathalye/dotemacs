@@ -732,8 +732,7 @@ and for auto-saves we can restore from.")
           lisp-interaction-mode
           ielm-mode
           clojure-mode
-          cider-repl-mode) . smartparens-strict-mode)
-  :blackout)
+          cider-repl-mode) . smartparens-strict-mode))
 
 (use-package eldoc
   :config
