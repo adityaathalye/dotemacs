@@ -1076,13 +1076,32 @@ and for auto-saves we can restore from.")
 ;; WEB DEVELOPMENT
 
 (use-package web-mode
-  :config
-  ;; for config ref: bbatsov/prelude/modules/prelude-web.el
+  ;; For config ref: https://web-mode.org/ and
+  ;;                 bbatsov/prelude/modules/prelude-web.el
   ;; e.g. to set web-mode for templating languages,
   ;;      to define new smartparen pairs etc.
-  (setq web-mode-enable-auto-pairing nil) ; play nice with smartparens
-  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-  :blackout)
+  :mode ("\\.phtml\\'"
+         "\\.tpl\\.php\\'"
+         "\\.tpl\\'"
+         "\\.hbs\\'"
+         "\\.blade\\.php\\'"
+         "\\.jsp\\'"
+         "\\.as[cp]x\\'"
+         "\\.erb\\'"
+         "\\.mustache\\'"
+         "\\.njk\\'"
+         "\\.jinja2?\\'"
+         "\\.svelte\\'"
+         "\\.vue\\'"
+         "\\.html?\\'"
+         ;; Also match on file paths, to support some framework's templates convention.
+         "/\\(views\\|html\\|theme\\|templates\\)/.*\\.php\\'")
+  :custom
+  (web-mode-enable-auto-pairing t) ; TODO: To use smartparens, see tips: https://web-mode.org/
+  (web-mode-markup-indent-offset 2)
+  (web-mode-css-indent-offset 2)
+  (web-mode-code-indent-offset 2)
+  (web-mode-sql-indent-offset 2))
 
 (use-package json-mode
   :blackout)
