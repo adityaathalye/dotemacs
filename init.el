@@ -955,6 +955,14 @@ and for auto-saves we can restore from.")
 ;; (use-package dap-mode)
 ;; (use-package dap-LANGUAGE :ensue t :after dap-mode) ; load dap adapter for LANGUAGE
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; CLOJURE(SCRIPT) ECOSYSTEM-MAXXING FOR GREAT GOOD!
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; The usual REPL/programming tooling /plus/ niceties from the
+;; (wonderful) ecosystem at large: run babashka tasks, access
+;; public documentation, decompile JARs, extend org babel etc.
+
 (use-package clojure-mode
   ;; Brings in clojure-mode for Clj, clojurescript-mode for Cljs,
   ;; and clojurec-mode for Cljc
@@ -967,6 +975,7 @@ and for auto-saves we can restore from.")
   :blackout "Clj")
 
 (use-package clojure-snippets
+  ;; Yasnippets for Clojure
   :blackout)
 
 (use-package cider
@@ -1019,6 +1028,13 @@ and for auto-saves we can restore from.")
 (use-package cider-eval-sexp-fu
   :blackout)
 
+;; TODO: Try out inf-clojure as---"quick and dirty"???---alternative
+;; to fully decked-out nREPL.  This package provides basic interaction
+;; with a Clojure subprocess (REPL).  It's based on ideas from the
+;; popular `inferior-lisp` package.
+;;
+;; (use-package inf-clojure)
+
 ;; clj-refactor can go where clojure-lsp refactor can't go
 (use-package clj-refactor
   ;; config h/t ericdallo/dotfiles doom emacs config
@@ -1031,16 +1047,56 @@ and for auto-saves we can restore from.")
         '(("s"   . "schema.core")
           ("pp" . "clojure.pprint"))))
 
+(use-package cljr-ivy
+  ;; Ivy version of `cljr-helm` to access clojure-refactor from
+  ;; ivy completing framework.
+  :blackout)
+
 (use-package clj-deps-new
   ;; Emacs interface to deps-new (like lein new for Leiningen, or clj-new for Boot)
   ;; ref: https://github.com/jpe90/emacs-clj-deps-new
   :blackout)
 
+(use-package clj-decompiler
+  ;; > Provides interactive functions for decompiling Clojure on the
+  ;; > JVM by loading them in the REPL and decompiling them with
+  ;; > https://github.com/clojure-goes-fast/clj-java-decompiler
+  ;; > - By Ben Sless. Hell, yes!
+  :blackout)
+
+(use-package clj-doc-browse
+  ;; Browse Markdown API documentation embedded in Clojure library JARs.
+  ;; Clojure libraries built with codox-md embed Markdown documentation as
+  ;; classpath resources under docs/<group>/<artifact>/.  This package provides
+  ;; Emacs commands to browse that documentation via CIDER's nREPL connection.
+  :blackout)
+
+(use-package ivy-clojuredocs
+  ;; Search for help in clojuredocs.org (heavily inspired by helm-clojuredocs)
+  :blackout)
+
+(use-package jet
+  ;; Eric Dallo's Emacs integration for borkdude/jet; a "CLI to
+  ;; transform between JSON, EDN, YAML and Transit using Clojure".
+  :blackout)
+
+(use-package babashka
+  ;; Minibuffer completion for Babashka :tasks in `bb.edn` in the
+  ;; current directory /*or any of its parents*/... Which feature, one
+  ;; hopes, will "just work" with Clojure "multiproject" repo
+  ;; layout. Once we switch over to babashka tasks instead of the
+  ;; extant clj tools method.
+  :blackout)
+
 (use-package clay)
 
-;; Javascript / Typescript development
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; JAVASCRIPT / TYPESCRIPT DEVELOPMENT
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Use the `ts-ls' server recommended in the official lsp-mode documentation
 ;; cf. https://emacs-lsp.github.io/lsp-mode/page/lsp-typescript/
+
 (use-package typescript-mode
   ;; NOTE: development has halted for this mode, because of how
   ;; complex TS and TSX parsing has become. They recommend using treesitter
@@ -1055,7 +1111,9 @@ and for auto-saves we can restore from.")
   :config
   (setq typescript-indent-level 2))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DATABASES
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package sql
   :config
@@ -1073,7 +1131,9 @@ and for auto-saves we can restore from.")
   (setq sqlformat-args '("--dialect" "postgres"))
   :blackout)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; WEB DEVELOPMENT
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package web-mode
   ;; For config ref: https://web-mode.org/ and
@@ -1109,12 +1169,16 @@ and for auto-saves we can restore from.")
 (use-package js2-mode
   :blackout)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; DOCUMENTATION FORMATS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package adoc-mode
   :blackout)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CONFIGURATION FORMATS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package yaml
   :blackout)
@@ -1130,8 +1194,9 @@ and for auto-saves we can restore from.")
   :custom
   (hcl-indent-level 2))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; INFORMATION OVERDOSING
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package elfeed
   ;; https://github.com/skeeto/elfeed
@@ -1199,9 +1264,6 @@ and for auto-saves we can restore from.")
 (use-package ob-sql-mode
   :blackout)
 
-(use-package ob-clojurescript
-  :blackout)
-
 (use-package ob-kotlin
   :blackout)
 
@@ -1264,8 +1326,21 @@ and for auto-saves we can restore from.")
   ;; https://github.com/yjwen/org-reveal
   )
 
+;; TODO: set up straight.el for this... Package not available any other way.
+;; (use-package org-pandoc-import
+;;   ;; https://github.com/tecosaur/org-pandoc-import
+;;   ;;
+;;   ;; > "The worst part about org-mode? Having to leave it."
+;;   ;;
+;;   ;; > "This package aims to reduce this pain by leveraging Pandoc to
+;;   ;;   convert selected file types to org."
+;;   :straight (:host github
+;;                    :repo "tecosaur/org-pandoc-import"
+;;                    :files ("*.el" "filters" "preprocessors")))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; LLM trials
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (load-file (expand-file-name "init-adi-llms.el" adi/dotemacs-dir))
 
